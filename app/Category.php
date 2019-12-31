@@ -8,26 +8,41 @@ use Illuminate\Support\Facades\Auth;
 
 class Category extends Model
 {
-    protected $fillable = ['title', 'image', 'status', 'parent_id', 'created_by', 'updated_by'];
+    protected $fillable = ['title', 'image', 'status'];
     private $title;
-    private $parent_id;
     private $created_by;
     private $updated_by;
+    private $parent_id;
+    /**
+     * @var string
+     */
+    private $image;
+    /**
+     * @var string
+     */
+    private $status;
 
-    public static function addCategory($request) {
+    public static function getAll() {
 
-        $validatedData = $request->validate([
-            'title' => 'required|max:191'
-        ]);
-
-        $category = new Category();
-        $category->title = $request->title;
-
-        $category->parent_id =  $request->parentCategory;
-        $category->created_by =  Auth::user()->id;
-        $category->updated_by = Auth::user()->id;
-        var_dump(Auth::user()->getId());
-        $category->save();
     }
+
+
+    public function CreatedBy() {
+        return $this->belongsTo('App\User', 'created_by');
+    }
+
+    public function UpdatedBy() {
+        return $this->belongsTo('App\User', 'updated_by');
+    }
+
+    public function ParentCategory() {
+        return $this->belongsTo('App\Category', 'parent_id', 'id');
+    }
+
+    public function ChildCategories() {
+        return $this->hasMany('App\Category', 'parent_id','id');
+    }
+
+
 
 }

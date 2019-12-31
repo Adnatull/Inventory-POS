@@ -41,4 +41,13 @@ class User extends Authenticatable
     {
         return $this->id;
     }
+
+    public function createdCategories()
+    {
+        return $this->hasMany('App\Category', 'created_by', 'id');
+    }
+
+    public function updatedCategories() {
+        return $this->hasMany('App\Category', 'updated_by', 'id');
+    }
 }

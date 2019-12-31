@@ -20,14 +20,14 @@ class CreateCategoriesTable extends Migration
             $table->tinyInteger('status')->default('1')->comment('1=active, 0=inactive');
 
             $table->bigInteger('parent_id')->unsigned()->nullable();
-//            $table->foreign('parent_id')->references('id')->on('categories');//->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('parent_id')->references('id')->on('categories')->onUpdate('cascade')->onDelete('set null');
 
-            $table->bigInteger('created_by')->unsigned();
-//            $table->foreign('created_by')->references('id')->on('users');
+            $table->bigInteger('created_by')->unsigned()->nullable();
+            $table->foreign('created_by')->references('id')->on('users')->onUpdate('cascade')->onDelete('set null');
 //
 
-            $table->bigInteger('updated_by')->unsigned();
-        //    $table->foreign('updated_by')->references('id')->on('users');
+            $table->bigInteger('updated_by')->unsigned()->nullable();
+            $table->foreign('updated_by')->references('id')->on('users')->onUpdate('cascade')->onDelete('set null');
             $table->timestamps();
         });
     }

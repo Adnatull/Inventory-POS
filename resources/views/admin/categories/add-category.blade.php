@@ -17,7 +17,7 @@
 
                 <div class="form-group">
                     <label for="input_parent_category">Parent Category</label>
-                    <select class="form-control" name="parentCategory" id="input_parent_category">
+                    <select class="form-control" name="parent_id" id="input_parent_category">
                         <option value="0">0</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
