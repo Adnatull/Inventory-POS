@@ -9,6 +9,9 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Category Name</th>
+                <th scope="col">Image</th>
+                <th scope="col">Status</th>
+
                 <th scope="col">Parent Category</th>
                 <th scope="col">Created By</th>
                 <th scope="col">Updated By</th>
@@ -21,6 +24,15 @@
                 <tr>
                     <th scope="row">{{$category->id}}</th>
                     <td>{{ $category->title }}</td>
+                    <td><img src="{{ $category->image }}" alt="Any alt text" style="width:100px;height:auto;"/></td>
+                    <td>
+                        @if($category->status == 1)
+                        {{"Active" }}
+                        @else:
+                        {{"Not Active"}}
+                        @endif
+                    </td>
+
                     <td>{{ $category->ParentCategory['title'] }}</td>
                     <td>{{$category->CreatedBy['name']}}</td>
                     <td>{{$category->UpdatedBy['name']}}</td>

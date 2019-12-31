@@ -3,6 +3,14 @@
 @section('body')
     <div class="card card-login mx-auto mt-5">
         <div class="card-body">
+            @if($errors->count()>0)
+                @foreach( $errors->all() as $message )
+                    <div class="alert alert-primary" role="alert">
+                        {{$message}}
+                    </div>
+                @endforeach
+            @endif
+
             <form method="POST" action="{{route('add_category')}}" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
@@ -11,19 +19,17 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="input_image_field">Example file input</label>
+                    <label for="input_image_field">Select Category Image</label>
                     <input type="file" name="image" class="form-control-file" id="input_image_field">
                 </div>
 
                 <div class="form-group">
                     <label for="input_parent_category">Parent Category</label>
                     <select class="form-control" name="parent_id" id="input_parent_category">
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
+                        @foreach($categories as $category)
+                            <option value="{{$category->id}}"> {{$category->title}}</option>
+                        @endforeach
+
                     </select>
                 </div>
                 <button type="submit" class="btn btn-primary" >Create</button>
