@@ -3,6 +3,14 @@
 
 @section('body')
 
+    @if($errors->count()>0)
+        @foreach( $errors->all() as $message )
+            <div class="alert alert-primary" role="alert">
+                {{$message}}
+            </div>
+        @endforeach
+    @endif
+
     <div class="table-responsive">
         <table class="table table-bordered table-hover">
             <thead>
@@ -28,7 +36,7 @@
                     <td>
                         @if($category->status == 1)
                         {{"Active" }}
-                        @else:
+                        @else
                         {{"Not Active"}}
                         @endif
                     </td>
@@ -37,10 +45,10 @@
                     <td>{{$category->CreatedBy['name']}}</td>
                     <td>{{$category->UpdatedBy['name']}}</td>
                     <td>
-                        <a type="button" class="btn btn-danger">
+                        <a type="button" class="btn btn-danger" href="{{route('editCategory', ['id'=> $category->id])}}">
                             Edit
                         </a>
-                        <a type="button" class="btn btn-danger">
+                        <a type="button" class="btn btn-danger" href="{{route('deleteCategory', ['id' => $category->id])}}">
                             Delete
                         </a>
                     </td>

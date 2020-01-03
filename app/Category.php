@@ -5,6 +5,7 @@ namespace App;
 use Cassandra\Bigint;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class Category extends Model
 {
@@ -22,9 +23,7 @@ class Category extends Model
      */
     private $status;
 
-    public static function getAll() {
 
-    }
 
 
     public function CreatedBy() {
