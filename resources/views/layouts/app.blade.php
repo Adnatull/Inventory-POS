@@ -16,18 +16,14 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
-
-
     <!-- Custom fonts for this template-->
     <link href="{{asset('/')}}AdminAssets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-
-    <!-- Page level plugin CSS-->
-    <link href="{{asset('/')}}AdminAssets/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="{{asset('/')}}AdminAssets/css/sb-admin.css" rel="stylesheet">
 
     <link rel="stylesheet" type="text/css" href="{{ asset('/') }}AdminAssets/css/latest_css_light_all.min.css" />
+
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -63,12 +59,22 @@
                                 </li>
                             @endif
                         @else
+
+
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
+
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    @if(Auth::user()->hasRoles())
+                                        <a class="dropdown-item" href="{{ route('admin') }}">
+                                           Admin Panel
+                                        </a>
+                                    @endif
+
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -90,5 +96,7 @@
             @yield('content')
         </main>
     </div>
+    <script src="{{asset('/')}}AdminAssets/vendor/jquery/jquery.min.js"></script>
+    <script src="{{asset('/')}}AdminAssets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
