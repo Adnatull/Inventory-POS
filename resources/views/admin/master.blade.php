@@ -78,6 +78,7 @@
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                 <a class="dropdown-item" href="#">{{ Auth::user()->name }}</a>
+                <a class="dropdown-item" href="{{route('homepage')}}">Home Page</a>
                 <a class="dropdown-item" href="#">Activity Log</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logoutForm').submit();" >Logout</a>
