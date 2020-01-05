@@ -13,7 +13,7 @@ class CreatePorductsTable extends Migration
      */
     public function up()
     {
-        Schema::create('porducts', function (Blueprint $table) {
+        Schema::create('products', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('code')->unique();
             $table->string('name');
@@ -42,6 +42,6 @@ class CreatePorductsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('porducts');
+        Schema::dropIfExists('products');
     }
 }
