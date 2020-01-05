@@ -90,7 +90,12 @@ class ProductController extends Controller
         catch(\Exception $e) {
             return Redirect::action('ProductController@add')->withErrors("The data has been tempered in midway! try again");
         }
+        return redirect(route('manage-products'));
+    }
 
-        return redirect(route('admin'));
+    public function manage_products() {
+        return view('admin.products.manage-products', [
+            'products' => Product::get()
+        ]);
     }
 }

@@ -153,6 +153,7 @@
                 <div class="dropdown-menu" aria-labelledby="pagesDropdown">
 
                     <a class="dropdown-item" href="{{route('add-product')}}">Add New Product</a>
+                    <a class="dropdown-item" href="{{route('manage-products')}}">Manage Product</a>
                 </div>
             </li>
         @endif

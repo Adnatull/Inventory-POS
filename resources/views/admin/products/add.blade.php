@@ -47,7 +47,7 @@
                     </select>
                 </div>
                 <button type="submit" class="btn btn-primary" >Create</button>
-                <a class="btn btn-primary" href="{{route('admin')}}">Cancel</a>
+                <a class="btn btn-primary" href="{{route('manage-products')}}">Cancel</a>
             </form>
         </div>
     </div>

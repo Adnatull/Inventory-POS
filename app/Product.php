@@ -19,4 +19,8 @@ class Product extends Model
     public function Category() {
         return $this->belongsTo('App\Category', 'category_id');
     }
+
+    public function SoldItems() {
+
+    }
 }
