@@ -14,7 +14,7 @@ class CategoryController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
+       // $this->middleware('auth');
     }
 
     public function add_category() {
@@ -67,6 +67,7 @@ class CategoryController extends Controller
         $res = Category::destroy($id);
         return Redirect::route('manage_category');
     }
+
 
     public function editCategory($id) {
 
