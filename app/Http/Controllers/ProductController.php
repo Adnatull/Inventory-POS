@@ -39,13 +39,18 @@ class ProductController extends Controller
         ]);
     }
 
+    function isCurrency($number)
+    {
+        return preg_match("/^-?[0-9]+(?:\.[0-9]{1,2})?$/", $number);
+    }
+
     public function submitProduct(Request $request) {
         $validatedData = Validator::make($request->all(), [
-            'code' => 'required|max:6|min:6',
+            'code' => 'required|max:6|min:6|unique:products',
             'name' => 'required|max:191',
             'cost' => 'required',
             'selling_cost' => 'required',
-            'quantity' => 'required',
+            'quantity' => 'required|integer',
             'category_id' => 'required',
         ]);
 
@@ -64,13 +69,27 @@ class ProductController extends Controller
         $product->updated_by = Auth::user()->id;
         $product->is_ready_for_sale = '1';
 
+
+        $errors = [];
+
+        if(!$this->isCurrency($request->cost)) {
+            $errors[] = "The Product cost must be decimal!";
+        }
+
+        if(!$this->isCurrency($request->selling_cost)) {
+            $errors[] = "Product Selling Cost must be decimal!";
+        }
+
+        if(count($errors)>0) {
+            return Redirect::action('ProductController@add')->withErrors($errors);
+        }
+
         try{
             $product->save();
         }
         catch(\Exception $e) {
-            return Redirect::action('ProductController@add')->withErrors("The data has been tempered in midway! try again!");
+            return Redirect::action('ProductController@add')->withErrors("The data has been tempered in midway! try again");
         }
-
 
         return redirect(route('admin'));
     }
