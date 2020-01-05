@@ -46,7 +46,11 @@ class AdminController extends Controller
             return Redirect::action('AdminController@manage_users')->withErrors($validatedData->messages());
         }
 
+
         $user = User::find($request->user_id);
+        if($user == null or $user->id == Auth::user()->id) {
+            return Redirect::action('AdminController@manage_users')->withErrors("Data has been tempered in midway! try again!");
+        }
         //  dd($user);
         $user->roles()->detach($request->role_id);
         return Redirect::route('manage-users');
@@ -64,7 +68,10 @@ class AdminController extends Controller
         }
 
         $user = User::find($request->user_id);
-      //  dd($user);
+        if($user == null or $user->id == Auth::user()->id) {
+            return Redirect::action('AdminController@manage_users')->withErrors("Data has been tempered in midway! try again!");
+        }
+
         $user->roles()->attach($request->role_id);
         return Redirect::route('manage-users');
     }
