@@ -138,8 +138,21 @@
                     <span>Users</span>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-                    <a class="dropdown-item" href="{{route('add_category')}}">Add New Category</a>
+
                     <a class="dropdown-item" href="{{route('manage-users')}}">Manage Users</a>
+                </div>
+            </li>
+        @endif
+
+        @if(Auth::user()->hasRole('executive'))
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Products</span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+
+                    <a class="dropdown-item" href="{{route('add-product')}}">Add New Product</a>
                 </div>
             </li>
         @endif

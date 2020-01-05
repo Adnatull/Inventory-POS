@@ -7,6 +7,7 @@ Auth::routes();
 
 Route::group(['middleware' => ['auth']], function() {
     Route::get('/admin', 'AdminController@index')->name('admin');
+    Route::get('/admin/no-permission', 'AdminController@permissionDenied')->name('noPermission');
 
 
     Route::group(['middleware' => ['admin']], function() {
@@ -22,7 +23,10 @@ Route::group(['middleware' => ['auth']], function() {
         Route::post('/admin/manage-users/give-role', 'AdminController@give_role')->name('give-role');
     });
 
-    Route::get('/admin/no-permission', 'AdminController@permissionDenied')->name('noPermission');
+    Route::group(['middleware' => ['executive']], function() {
+        Route::get('/admin/products/add', 'ProductController@add')->name('add-product');
+        Route::post('/admin/products/add', 'ProductController@submitProduct')->name('add-product');
+    });
 
 
 });
