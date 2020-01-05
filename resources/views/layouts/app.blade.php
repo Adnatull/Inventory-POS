@@ -16,8 +16,22 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
+
+
+    <!-- Custom fonts for this template-->
+    <link href="{{asset('/')}}AdminAssets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Page level plugin CSS-->
+    <link href="{{asset('/')}}AdminAssets/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="{{asset('/')}}AdminAssets/css/sb-admin.css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('/') }}AdminAssets/css/latest_css_light_all.min.css" />
+
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
 </head>
 <body>
     <div id="app">
