@@ -117,7 +117,7 @@
                 <a class="dropdown-item" href="blank.html">Blank Page</a>
             </div>
         </li>
-
+        @if(Auth::user()->hasRole('admin'))
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-fw fa-folder"></i>
@@ -127,9 +127,21 @@
                 <h6 class="dropdown-header">Category Screens:</h6>
                 <a class="dropdown-item" href="{{route('add_category')}}">Add New Category</a>
                 <a class="dropdown-item" href="{{route('manage_category')}}">Manage Categories</a>
-
             </div>
         </li>
+        @endif
+        @if(Auth::user()->hasRole('admin'))
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Users</span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+                    <a class="dropdown-item" href="{{route('add_category')}}">Add New Category</a>
+                    <a class="dropdown-item" href="{{route('manage-users')}}">Manage Users</a>
+                </div>
+            </li>
+        @endif
         <li class="nav-item">
             <a class="nav-link" href="charts.html">
                 <i class="fas fa-fw fa-chart-area"></i>
