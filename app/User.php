@@ -83,4 +83,12 @@ class User extends Authenticatable
         }
         return $notAssociatedUserRoles;
     }
+
+    public function createdProducts() {
+        return $this->hasMany('App\Product', 'created_by', 'id');
+    }
+
+    public function updatedProducts() {
+        return $this->hasMany('App\Product', 'updated_by', 'id');
+    }
 }
