@@ -50,4 +50,8 @@ class User extends Authenticatable
     public function updatedCategories() {
         return $this->hasMany('App\Category', 'updated_by', 'id');
     }
+
+    public function roles() {
+        return $this->belongsToMany('App\Role', 'role_user', 'user_id', 'role_id');
+    }
 }
