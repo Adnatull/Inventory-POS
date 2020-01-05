@@ -27,6 +27,7 @@ Route::group(['middleware' => ['auth']], function() {
         Route::get('/admin/products/add', 'ProductController@add')->name('add-product');
         Route::post('/admin/products/add', 'ProductController@submitProduct')->name('add-product');
         Route::get('/admin/products/manage-products', 'ProductController@manage_products')->name('manage-products');
+        Route::get('/admin/products/manage-products/add-photos/{id}', 'ProductController@add_photos')->name('add-product-photos');
     });
 
 

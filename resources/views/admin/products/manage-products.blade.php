@@ -50,12 +50,18 @@
                     <td>{{$product->CreatedBy['name']}}</td>
                     <td>{{$product->UpdatedBy['name']}}</td>
                     <td>
+                        @if($product->HasImages())
                         <a type="button" class="btn btn-danger" href="{{route('editCategory', ['id'=> $product->id])}}">
                             Edit
                         </a>
                         <a type="button" class="btn btn-danger" href="{{route('deleteCategory', ['id' => $product->id])}}">
                             Delete
                         </a>
+                        @else
+                            <a type="button" class="btn btn-danger" href="{{route('add-product-photos', ['id'=> $product->id])}}">
+                                Add Photos
+                            </a>
+                        @endif
                     </td>
                 </tr>
 

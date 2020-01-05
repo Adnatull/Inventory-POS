@@ -98,4 +98,8 @@ class ProductController extends Controller
             'products' => Product::get()
         ]);
     }
+
+    public function add_photos($id) {
+        return view('admin.products.add-product-images', ['product'=> Product::find($id)]);
+    }
 }
