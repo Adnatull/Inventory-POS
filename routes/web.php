@@ -29,6 +29,7 @@ Route::group(['middleware' => ['auth']], function() {
         Route::get('/admin/products/manage-products', 'ProductController@manage_products')->name('manage-products');
         Route::get('/admin/products/manage-products/add-photos/{id}', 'ProductController@add_photos')->name('add-product-photos');
         Route::post('/admin/products/manage-products/submit-photos', 'ProductController@submitPhotos')->name('submitPhotos');
+        Route::get('/admin/products/manage-products/view-photos/{id}', 'ProductController@viewPhotos')->name('viewPhotos');
     });
 
 

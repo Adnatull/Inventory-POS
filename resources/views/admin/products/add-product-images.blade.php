@@ -23,7 +23,7 @@
                     <input id="browse" type="file" name="photos[]" class="form-control" onchange="previewFiles()" multiple required>
                 </div>
 
-                <button type="submit" class="btn btn-primary" >Create</button>
+                <button type="submit" class="btn btn-primary" >Upload</button>
                 <a class="btn btn-primary" href="{{route('manage-products')}}">Cancel</a>
             </form>
 

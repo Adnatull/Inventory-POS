@@ -51,12 +51,15 @@
                     <td>{{$product->UpdatedBy['name']}}</td>
                     <td>
                         @if($product->HasImages())
-                        <a type="button" class="btn btn-danger" href="{{route('editCategory', ['id'=> $product->id])}}">
-                            Edit
-                        </a>
-                        <a type="button" class="btn btn-danger" href="{{route('deleteCategory', ['id' => $product->id])}}">
-                            Delete
-                        </a>
+                            <a type="button" class="btn btn-danger" href="{{route('viewPhotos', ['id'=> $product->id])}}">
+                                View All Photos
+                            </a>
+                            <a type="button" class="btn btn-danger" href="{{route('editCategory', ['id'=> $product->id])}}">
+                                Edit
+                            </a>
+                            <a type="button" class="btn btn-danger" href="{{route('deleteCategory', ['id' => $product->id])}}">
+                                Delete
+                            </a>
                         @else
                             <a type="button" class="btn btn-danger" href="{{route('add-product-photos', ['id'=> $product->id])}}">
                                 Add Photos

@@ -141,7 +141,11 @@ class ProductController extends Controller
 
         }
         return Redirect::route('manage-products')->withErrors("Successfully Uploaded Photos!");;
+    }
 
-
+    public function viewPhotos($id) {
+        $images = Product_Image::get()->where('product_id', $id);
+        $product = Product::find($id);
+        return view('admin.products.view-photos', ['product'=> $product, 'images'=>$images ]);
     }
 }
