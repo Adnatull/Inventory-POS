@@ -24,7 +24,7 @@
                                     <small class="text-muted">{{$role->name}} </small>
                                 @endforeach
                             </div>
-                            @if($user->id != Auth::user()->id)
+                            @if($user->id != Auth::user()->id && $user->name != 'admin')
                                 <div class="col-sm-6">
                                     <form method="post" action="{{ route('give-role') }}">
                                         @csrf
