@@ -20,7 +20,7 @@
     <!-- Custom styles for this template-->
     <link href="{{asset('/')}}AdminAssets/css/sb-admin.css" rel="stylesheet">
 
-    <link rel="stylesheet" type="text/css" href="{{ asset('/') }}AdminAssets/css/latest_css_light_all.min.css" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('/') }}AdminAssets/css/sb-admin.css" />
 
 </head>
 
@@ -222,7 +222,7 @@
 <script src="{{asset('/')}}AdminAssets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 <!-- Core plugin JavaScript-->
-<script src="{{asset('/')}}AdminAssets//jquery-easing/jquery.easing.min.js"></script>
+<script src="{{asset('/')}}AdminAssets/vendor/jquery-easing/jquery.easing.min.js"></script>
 
 <!-- Page level plugin JavaScript-->
 <script src="{{asset('/')}}AdminAssets/vendor/chart.js/Chart.min.js"></script>
@@ -235,6 +235,8 @@
 <!-- Demo scripts for this page-->
 <script src="{{asset('/')}}AdminAssets/js/demo/datatables-demo.js"></script>
 <script src="{{asset('/')}}AdminAssets/js/demo/chart-area-demo.js"></script>
+
+<script src="{{asset('/')}}style.js"></script>
 
 
 

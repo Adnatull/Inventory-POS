@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Product_Image;
 use Illuminate\Http\Request;
 use App\Product;
 use Illuminate\Support\Facades\Auth;
@@ -101,5 +102,46 @@ class ProductController extends Controller
 
     public function add_photos($id) {
         return view('admin.products.add-product-images', ['product'=> Product::find($id)]);
+    }
+
+    public function submitPhotos(Request $request) {
+        $validatedData = Validator::make($request->all(), [
+            'product_id' => 'required',
+            'photos' => 'required',
+            'photos.*' => 'image|mimes:jpeg,png,jpg,gif|max:500'
+
+        ]);
+
+        if($validatedData->fails()) {
+            return Redirect::route('manage-products')->withErrors($validatedData->messages());
+        }
+
+        $product = Product::find($request->product_id);
+        if($product == null) {
+            return Redirect::route('manage-products')->withErrors("Data has been tempered in midway! try again!");
+        }
+
+        foreach($request->photos as $photo){
+            $img = new Product_Image();
+
+            $img->product_id = $product->id;
+
+            $content = file_get_contents($photo);
+            $type = pathinfo($photo, PATHINFO_EXTENSION);
+            $base64 = base64_encode($content);
+            $base64 = 'data:image/'.$type.';base64,'.$base64;
+
+            $img->image = $base64;
+            try{
+                $img->save();
+            }
+            catch(\Exception $e) {
+                return Redirect::route('manage-products')->withErrors("Data has been tempered in midway! try again!");
+            }
+
+        }
+        return Redirect::route('manage-products')->withErrors("Successfully Uploaded Photos!");;
+
+
     }
 }
