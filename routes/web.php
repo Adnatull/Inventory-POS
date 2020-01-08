@@ -31,6 +31,12 @@ Route::group(['middleware' => ['auth']], function() {
         Route::post('/admin/products/manage-products/submit-photos', 'ProductController@submitPhotos')->name('submitPhotos');
         Route::get('/admin/products/manage-products/view-photos/{id}', 'ProductController@viewPhotos')->name('viewPhotos');
     });
+    Route::group(['middleware' => ['manager']], function() {
+
+        Route::get('/admin/products/manage-products/product/delete/{id}', 'ProductController@deleteProductPhoto')->name('deleteProductPhoto');
+    });
+
+
 
 
 });

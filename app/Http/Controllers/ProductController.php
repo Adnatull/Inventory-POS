@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Product_Image;
+use Faker\Provider\Image;
 use Illuminate\Http\Request;
 use App\Product;
 use Illuminate\Support\Facades\Auth;
@@ -147,5 +148,21 @@ class ProductController extends Controller
         $images = Product_Image::get()->where('product_id', $id);
         $product = Product::find($id);
         return view('admin.products.view-photos', ['product'=> $product, 'images'=>$images ]);
+    }
+
+    public function deleteProductPhoto($id) {
+        try {
+            $image = Product_Image::find($id);
+            $product = Product::find($image->product_id);
+        }
+        catch (\Exception $e) {
+            return Redirect::route('manage-products')->withErrors("Data has been tempered in midway! try again!");
+        }
+        $res = Product_Image::destroy($id);
+        if($res) {
+            return Redirect::route('viewPhotos', ['id' => $product->id])->withErrors("Successfully Deleted Photo!");
+        }
+        return Redirect::route('viewPhotos', ['id' => $product->id])->withErrors("Failed to Delete Photo!");
+
     }
 }

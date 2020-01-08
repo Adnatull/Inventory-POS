@@ -29,14 +29,11 @@
 
                     <td><img src="{{ $image->image }}" alt="Any alt text" style="width:300px;height:auto;"/></td>
                     <td>
-
-
-                            <a type="button" class="btn btn-danger" href="{{route('editCategory', ['id'=> $product->id])}}">
-                                Edit
+                        @if(Auth::user()->hasRole('manager'))
+                            <a type="button" class="btn btn-danger" href="{{route('deleteProductPhoto', ['id' => $image->id])}}">
+                                    Delete
                             </a>
-                            <a type="button" class="btn btn-danger" href="{{route('deleteCategory', ['id' => $product->id])}}">
-                                Delete
-                            </a>
+                        @endif
 
                     </td>
                 </tr>
