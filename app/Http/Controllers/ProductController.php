@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\View\View;
 use mysql_xdevapi\Exception;
 
 class ProductController extends Controller
@@ -177,5 +178,38 @@ class ProductController extends Controller
             return Redirect::route('manage-products')->withErrors("Successfully Deleted Product!");
         }
         return Redirect::route('manage-products')->withErrors("Failed to delete Product!");
+    }
+
+    public function changeProductPrice($id) {
+        $product = Product::find($id);
+        if($product == null) {
+            return Redirect::route('manage-products')->withErrors("Data has been tempered in midway! try again!");
+        }
+        return view('admin.products.change-price', ['product' => $product]);
+    }
+
+    public function updateProductPrice(Request $request) {
+        $validatedData = Validator::make($request->all(), [
+            'selling_cost' => 'required',
+            'product_id' => 'required',
+        ]);
+
+        if($validatedData->fails()) {
+            return Redirect::route('manage-products')->withErrors($validatedData->messages());
+        }
+
+        $errors = [];
+
+        if(!$this->isCurrency($request->selling_cost)) {
+            $errors[] = "Product Selling Cost must be decimal!";
+        }
+        if(count($errors)>0) {
+            return Redirect::route('changeProductPrice', ['id'=>$request->product_id])->withErrors($errors);
+        }
+
+        $product = Product::find($request->product_id);
+        $product->selling_cost = $request->selling_cost;
+        $product->save();
+        return Redirect::route('manage-products')->withErrors("Successfully Updated Price!");
     }
 }

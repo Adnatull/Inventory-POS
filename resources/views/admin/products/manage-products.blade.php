@@ -60,8 +60,8 @@
                             </a>
                         @endif
                         @if(Auth::user()->hasRole('manager'))
-                                <a type="button" class="btn btn-danger" href="{{route('editCategory', ['id'=> $product->id])}}">
-                                    Edit
+                                <a type="button" class="btn btn-danger" href="{{route('changeProductPrice', ['id' => $product->id])}}">
+                                    Change Price
                                 </a>
                                 <a type="button" class="btn btn-danger" href="{{route('deleteProduct', ['id' => $product->id])}}">
                                     Delete
