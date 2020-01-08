@@ -27,13 +27,13 @@ Route::group(['middleware' => ['auth']], function() {
         Route::get('/admin/products/add', 'ProductController@add')->name('add-product');
         Route::post('/admin/products/add', 'ProductController@submitProduct')->name('add-product');
         Route::get('/admin/products/manage-products', 'ProductController@manage_products')->name('manage-products');
-        Route::get('/admin/products/manage-products/add-photos/{id}', 'ProductController@add_photos')->name('add-product-photos');
-        Route::post('/admin/products/manage-products/submit-photos', 'ProductController@submitPhotos')->name('submitPhotos');
-        Route::get('/admin/products/manage-products/view-photos/{id}', 'ProductController@viewPhotos')->name('viewPhotos');
+        Route::get('/admin/products/manage-products/product/add-photos/{id}', 'ProductController@add_photos')->name('add-product-photos');
+        Route::post('/admin/products/manage-products/product/submit-photos', 'ProductController@submitPhotos')->name('submitPhotos');
+        Route::get('/admin/products/manage-products/product/view-photos/{id}', 'ProductController@viewPhotos')->name('viewPhotos');
     });
     Route::group(['middleware' => ['manager']], function() {
 
-        Route::get('/admin/products/manage-products/product/delete/{id}', 'ProductController@deleteProductPhoto')->name('deleteProductPhoto');
+        Route::get('/admin/products/manage-products/product/photo/delete/{id}', 'ProductController@deleteProductPhoto')->name('deleteProductPhoto');
     });
 
 
