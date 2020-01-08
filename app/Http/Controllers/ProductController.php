@@ -165,4 +165,17 @@ class ProductController extends Controller
         return Redirect::route('viewPhotos', ['id' => $product->id])->withErrors("Failed to Delete Photo!");
 
     }
+
+    public function deleteProduct($id) {
+        try {
+            $res = Product_Image::where('product_id', $id)->delete();
+            $res = Product::destroy($id);
+        } catch (\Exception $e) {
+            return Redirect::route('manage-products')->withErrors("Data has been tempered in midway! try again!");
+        }
+        if($res) {
+            return Redirect::route('manage-products')->withErrors("Successfully Deleted Product!");
+        }
+        return Redirect::route('manage-products')->withErrors("Failed to delete Product!");
+    }
 }

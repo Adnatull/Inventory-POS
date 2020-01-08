@@ -54,16 +54,18 @@
                             <a type="button" class="btn btn-danger" href="{{route('viewPhotos', ['id'=> $product->id])}}">
                                 View All Photos
                             </a>
-                            <a type="button" class="btn btn-danger" href="{{route('editCategory', ['id'=> $product->id])}}">
-                                Edit
-                            </a>
-                            <a type="button" class="btn btn-danger" href="{{route('deleteCategory', ['id' => $product->id])}}">
-                                Delete
-                            </a>
                         @else
                             <a type="button" class="btn btn-danger" href="{{route('add-product-photos', ['id'=> $product->id])}}">
                                 Add Photos
                             </a>
+                        @endif
+                        @if(Auth::user()->hasRole('manager'))
+                                <a type="button" class="btn btn-danger" href="{{route('editCategory', ['id'=> $product->id])}}">
+                                    Edit
+                                </a>
+                                <a type="button" class="btn btn-danger" href="{{route('deleteProduct', ['id' => $product->id])}}">
+                                    Delete
+                                </a>
                         @endif
                     </td>
                 </tr>

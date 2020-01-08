@@ -34,6 +34,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::group(['middleware' => ['manager']], function() {
 
         Route::get('/admin/products/manage-products/product/photo/delete/{id}', 'ProductController@deleteProductPhoto')->name('deleteProductPhoto');
+        Route::get('/admin/products/manage-products/product/delete/{id}', 'ProductController@deleteProduct')->name('deleteProduct');
     });
 
 
