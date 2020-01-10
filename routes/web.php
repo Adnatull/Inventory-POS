@@ -1,7 +1,4 @@
 <?php
-
-
-
 Auth::routes();
 
 
@@ -32,15 +29,15 @@ Route::group(['middleware' => ['auth']], function() {
         Route::get('/admin/products/manage-products/product/view-photos/{id}', 'ProductController@viewPhotos')->name('viewPhotos');
     });
     Route::group(['middleware' => ['manager']], function() {
-
         Route::get('/admin/products/manage-products/product/photo/delete/{id}', 'ProductController@deleteProductPhoto')->name('deleteProductPhoto');
         Route::get('/admin/products/manage-products/product/delete/{id}', 'ProductController@deleteProduct')->name('deleteProduct');
         Route::get('/admin/products/manage-products/product/changePrice/{id}', 'ProductController@changeProductPrice')->name('changeProductPrice');
         Route::post('/admin/products/manage-products/product/update-price', 'ProductController@updateProductPrice')->name('updateProductPrice');
     });
 
-
-
+    Route::group(['middleware' => ['seller']], function() {
+        Route::get('/admin/products/sale', 'TransactionController@sell')->name('sell-products');
+    });
 
 });
 
