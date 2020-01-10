@@ -31,7 +31,8 @@
 
         </div>
     </div>
-
-
-
 @endsection
+
+@push('jscripts')
+  <script src="{{asset('/')}}style.js"></script>
+@endpush
