@@ -157,6 +157,20 @@
                 </div>
             </li>
         @endif
+
+        @if(Auth::user()->hasRole('seller'))
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Transactions</span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+
+                    <a class="dropdown-item" href="{{route('sell-products')}}">Sell Products</a>
+                    <a class="dropdown-item" href="{{route('manage-products')}}">Manage Product</a>
+                </div>
+            </li>
+        @endif
         <li class="nav-item">
             <a class="nav-link" href="charts.html">
                 <i class="fas fa-fw fa-chart-area"></i>
@@ -236,8 +250,9 @@
 <script src="{{asset('/')}}AdminAssets/js/demo/datatables-demo.js"></script>
 <script src="{{asset('/')}}AdminAssets/js/demo/chart-area-demo.js"></script>
 
-<script src="{{asset('/')}}style.js"></script>
 
+
+@stack('jscripts');
 
 
 </body>
