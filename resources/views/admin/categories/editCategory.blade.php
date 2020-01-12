@@ -1,5 +1,9 @@
 @extends('admin.master')
 
+@section('title')
+  Edit Category
+@endsection
+
 @section('body')
 
     <div class="card card-login mx-auto mt-5">

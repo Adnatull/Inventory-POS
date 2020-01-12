@@ -1,5 +1,9 @@
 @extends('admin.master')
 
+@section('title')
+  View Product Photos
+@endsection
+
 @section('body')
     @if($errors->count()>0)
         @foreach( $errors->all() as $message )

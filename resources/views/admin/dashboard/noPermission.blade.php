@@ -1,5 +1,9 @@
 @extends('admin.master')
 
+@section('title')
+  Access Denied
+@endsection
+
 @section('body')
         <div class="row">
             <div class="col-md-12">

@@ -1,5 +1,9 @@
 @extends('admin.master')
 
+@section('title')
+  Admin Panel
+@endsection
+
 @section('body')
     <!-- Icon Cards-->
     <div class="row">

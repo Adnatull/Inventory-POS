@@ -1,5 +1,9 @@
 @extends('admin.master')
 
+@section('title')
+  Manage Users
+@endsection
+
 @section('body')
 
     @if($errors->count()>0)

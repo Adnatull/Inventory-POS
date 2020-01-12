@@ -1,5 +1,8 @@
 @extends('admin.master')
 
+@section('title')
+  Manage Products
+@endsection
 
 @section('body')
 

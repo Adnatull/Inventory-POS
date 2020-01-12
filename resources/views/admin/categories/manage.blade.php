@@ -1,5 +1,8 @@
 @extends('admin.master')
 
+@section('title')
+  Manage Categories
+@endsection
 
 @section('body')
 

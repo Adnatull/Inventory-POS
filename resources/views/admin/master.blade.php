@@ -9,7 +9,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Admin Panel</title>
+    <title>
+      @yield('title')
+    </title>
 
     <!-- Custom fonts for this template-->
     <link href="{{asset('/')}}AdminAssets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">

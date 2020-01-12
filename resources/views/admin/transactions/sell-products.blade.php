@@ -1,5 +1,9 @@
 @extends('admin.master')
 
+@section('title')
+  Sell Products
+@endsection
+
 @section('body')
 
 <!-- <a class="btn btn-secondary active" href="#" role="button" onclick="hasCustomer(this)">Want to provide Customer Information?</a> -->

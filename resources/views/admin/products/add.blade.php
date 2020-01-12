@@ -1,5 +1,9 @@
 @extends('admin.master')
 
+@section('title')
+  Add Product
+@endsection
+
 @section('body')
     <div class="card card-login mx-auto mt-5">
         <div class="card-body">
