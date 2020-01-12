@@ -77,7 +77,7 @@ class CategoryController extends Controller
         }
 
         return view('admin.categories.editCategory', [
-            'category' => Category::find($id),
+            'category' => $category,
             'allCategories' => Category::get()
         ]);
     }
@@ -111,7 +111,6 @@ class CategoryController extends Controller
         }
 
         $category->status = $request->status;
-        $category->created_by =  Auth::user()->id;
         $category->updated_by = Auth::user()->id;
 
         $category->save();
