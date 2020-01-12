@@ -18,6 +18,15 @@ Route::group(['middleware' => ['auth']], function() {
         Route::get('/admin/manage-users', 'AdminController@manage_users')->name('manage-users');
         Route::post('/admin/manage-users/remove-role', 'AdminController@remove_role')->name('remove-role');
         Route::post('/admin/manage-users/give-role', 'AdminController@give_role')->name('give-role');
+
+        Route::get('/admin/brands/add', 'BrandController@addBrand')->name('add-brand');
+        Route::post('/admin/brands/add', 'BrandController@postBrand')->name('add-brand');
+        Route::get('/admin/brands/manage', 'BrandController@manageBrand')->name('manage-brands');
+        Route::get('/admin/brands/delete/{id}', 'BrandController@deleteBrand')->name('delete-brand');
+        Route::get('/admin/brands/edit/{id}', 'BrandController@editBrand')->name('edit-brand');
+        Route::post('/admin/brands/edit/', 'BrandController@editedBrand')->name('edited-brand');
+
+
     });
 
     Route::group(['middleware' => ['executive']], function() {
