@@ -26,6 +26,9 @@ Route::group(['middleware' => ['auth']], function() {
         Route::get('/admin/brands/edit/{id}', 'BrandController@editBrand')->name('edit-brand');
         Route::post('/admin/brands/edit/', 'BrandController@editedBrand')->name('edited-brand');
 
+        Route::get('/admin/products/unit/add', 'UnitController@addUnit')->name('add-unit');
+        Route::post('/admin/products/unit/add', 'UnitController@postUnit')->name('add-unit');
+        Route::get('/admin/products/unit/manage', 'UnitController@manageUnit')->name('manage-units');
 
     });
 

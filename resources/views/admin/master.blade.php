@@ -149,6 +149,20 @@
         @endif
 
         @if(Auth::user()->hasRole('admin'))
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-fw fa-folder"></i>
+                <span>Product Unit</span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+                <h6 class="dropdown-header">Product Unit Screens:</h6>
+                <a class="dropdown-item" href="{{route('add-unit')}}">Add New Unit</a>
+                <a class="dropdown-item" href="{{route('manage-units')}}">Manage Units</a>
+            </div>
+        </li>
+        @endif
+
+        @if(Auth::user()->hasRole('admin'))
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-fw fa-folder"></i>
