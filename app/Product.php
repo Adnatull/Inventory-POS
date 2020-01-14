@@ -35,4 +35,13 @@ class Product extends Model
         }
         return true;
     }
+
+    public function Prices() {
+        return $this->hasMany('App\Product_Price', 'product_id', 'id');
+    }
+
+    public function Current_Price() {
+      $price = $this->Prices()->where('product_id', $this->id)->max('id');
+      return $price;
+    }
 }
