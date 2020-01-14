@@ -50,7 +50,7 @@ Manage Brands
                     <a type="button" class="btn btn-danger" href="{{route('edit-brand', ['id'=> $brand->id])}}">
                         Edit
                     </a>
-                    <a type="button" class="btn btn-danger" href="{{route('delete-brand', ['id' => $brand->id])}}">
+                    <a type="button" class="btn btn-danger" href="{{route('delete-brand', ['id' => $brand->id])}}" onclick="return confirm('Are you sure?')">
                         Delete
                     </a>
                 </td>
