@@ -17,8 +17,10 @@
 
                 <div class="alert alert-primary" role="alert">
                     Product Name: {{$product->name}} <br>
-                    Actual Cost: {{$product->cost}} <br>
-                    Current Selling Cost: {{$product->selling_cost}}
+                <?php
+                    // Actual Cost: {{$product->cost}} <br>
+                    // Current Selling Cost: {{$product->selling_cost}}
+                    ?>
                 </div>
 
             <form method="POST" action="{{route('updateProductPrice')}}" >

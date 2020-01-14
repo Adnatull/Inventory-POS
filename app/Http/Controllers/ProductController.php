@@ -42,8 +42,7 @@ class ProductController extends Controller
         ]);
     }
 
-    function isCurrency($number)
-    {
+    function isCurrency($number){
         return preg_match("/^-?[0-9]+(?:\.[0-9]{1,2})?$/", $number);
     }
 
@@ -51,9 +50,9 @@ class ProductController extends Controller
         $validatedData = Validator::make($request->all(), [
             'code' => 'required|max:6|min:6|unique:products',
             'name' => 'required|max:191',
-            'cost' => 'required',
-            'selling_cost' => 'required',
-            'quantity' => 'required|integer',
+            // 'cost' => 'required',
+            // 'selling_cost' => 'required',
+            // 'quantity' => 'required|integer',
             'category_id' => 'required',
         ]);
 
@@ -64,28 +63,28 @@ class ProductController extends Controller
         $product = new Product();
         $product->code = $request->code;
         $product->name = $request->name;
-        $product->cost = $request->cost;
-        $product->selling_cost = $request->selling_cost;
-        $product->quantity = $request->quantity;
+        // $product->cost = $request->cost;
+        // $product->selling_cost = $request->selling_cost;
+        // $product->quantity = $request->quantity;
         $product->category_id = $request->category_id;
         $product->created_by = Auth::user()->id;
         $product->updated_by = Auth::user()->id;
         $product->is_ready_for_sale = '1';
 
 
-        $errors = [];
-
-        if(!$this->isCurrency($request->cost)) {
-            $errors[] = "The Product cost must be decimal!";
-        }
-
-        if(!$this->isCurrency($request->selling_cost)) {
-            $errors[] = "Product Selling Cost must be decimal!";
-        }
-
-        if(count($errors)>0) {
-            return Redirect::action('ProductController@add')->withErrors($errors);
-        }
+        // $errors = [];
+        //
+        // if(!$this->isCurrency($request->cost)) {
+        //     $errors[] = "The Product cost must be decimal!";
+        // }
+        //
+        // if(!$this->isCurrency($request->selling_cost)) {
+        //     $errors[] = "Product Selling Cost must be decimal!";
+        // }
+        //
+        // if(count($errors)>0) {
+        //     return Redirect::action('ProductController@add')->withErrors($errors);
+        // }
 
         try{
             $product->save();
@@ -190,7 +189,7 @@ class ProductController extends Controller
 
     public function updateProductPrice(Request $request) {
         $validatedData = Validator::make($request->all(), [
-            'selling_cost' => 'required',
+            // 'selling_cost' => 'required',
             'product_id' => 'required',
         ]);
 
@@ -198,18 +197,18 @@ class ProductController extends Controller
             return Redirect::route('manage-products')->withErrors($validatedData->messages());
         }
 
-        $errors = [];
+        // $errors = [];
+        //
+        // if(!$this->isCurrency($request->selling_cost)) {
+        //     $errors[] = "Product Selling Cost must be decimal!";
+        // }
+        // if(count($errors)>0) {
+        //     return Redirect::route('changeProductPrice', ['id'=>$request->product_id])->withErrors($errors);
+        // }
 
-        if(!$this->isCurrency($request->selling_cost)) {
-            $errors[] = "Product Selling Cost must be decimal!";
-        }
-        if(count($errors)>0) {
-            return Redirect::route('changeProductPrice', ['id'=>$request->product_id])->withErrors($errors);
-        }
-
-        $product = Product::find($request->product_id);
-        $product->selling_cost = $request->selling_cost;
-        $product->save();
+        // $product = Product::find($request->product_id);
+        // $product->selling_cost = $request->selling_cost;
+        // $product->save();
         return Redirect::route('manage-products')->withErrors("Successfully Updated Price!");
     }
 }
