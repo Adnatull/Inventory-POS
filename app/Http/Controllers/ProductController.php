@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Product_Image;
+use App\Product_Price;
 use Faker\Provider\Image;
 use Illuminate\Http\Request;
 use App\Product;
@@ -189,7 +190,7 @@ class ProductController extends Controller
 
     public function updateProductPrice(Request $request) {
         $validatedData = Validator::make($request->all(), [
-            // 'selling_cost' => 'required',
+            'selling_cost' => 'required',
             'product_id' => 'required',
         ]);
 
@@ -197,18 +198,26 @@ class ProductController extends Controller
             return Redirect::route('manage-products')->withErrors($validatedData->messages());
         }
 
-        // $errors = [];
-        //
-        // if(!$this->isCurrency($request->selling_cost)) {
-        //     $errors[] = "Product Selling Cost must be decimal!";
-        // }
-        // if(count($errors)>0) {
-        //     return Redirect::route('changeProductPrice', ['id'=>$request->product_id])->withErrors($errors);
-        // }
+        $errors = [];
 
-        // $product = Product::find($request->product_id);
-        // $product->selling_cost = $request->selling_cost;
-        // $product->save();
+        if(!$this->isCurrency($request->selling_cost)) {
+            $errors[] = "Product Selling Cost must be decimal!";
+        }
+        if(count($errors)>0) {
+            return Redirect::route('changeProductPrice', ['id'=>$request->product_id])->withErrors($errors);
+        }
+
+        $product = Product::find($request->product_id);
+
+        $product_price = new Product_Price();
+
+        $product_price->selling_cost = $request->selling_cost;
+        $product_price->created_by = Auth::user()->id;
+        $product_price->updated_by = Auth::user()->id;
+        $product_price->Product()->associate($product);
+        $product_price->save();
+
+        //$product->save();
         return Redirect::route('manage-products')->withErrors("Successfully Updated Price!");
     }
 }

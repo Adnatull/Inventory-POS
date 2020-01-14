@@ -21,9 +21,10 @@
                 <th scope="col">#</th>
                 <th scope="col">Product Code</th>
                 <th scope="col">Product Name</th>
+                <th scope="col">Selling Cost</th>
           <?php
             // <th scope="col">Actual Cost</th>
-            //     <th scope="col">Selling Cost</th>
+            //
             //     <th scope="col">Quantity</th>
                  ?>
                 <th scope="col">Status</th>
@@ -40,12 +41,13 @@
                     <th scope="row">{{$product->id}}</th>
                     <td>{{ $product->code }}</td>
                     <td>{{ $product->name }}</td>
+                    <td>{{ $product->Current_Price() }}</td>
                     <?php
                     // <td>{{ $product->cost }}</td>
-                    // <td>{{ $product->selling_cost }}</td>
+                    //
                     // <td>{{ $product->quantity }}</td>
                     ?>
-                    <td>
+                    <td>                
                         @if($product->is_ready_for_sale == 1)
                             {{"Active" }}
                         @else
