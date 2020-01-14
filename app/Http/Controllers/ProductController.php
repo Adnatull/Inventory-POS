@@ -190,18 +190,18 @@ class ProductController extends Controller
 
     public function updateProductPrice(Request $request) {
         $validatedData = Validator::make($request->all(), [
-            'selling_cost' => 'required',
+            'selling_price' => 'required',
             'product_id' => 'required',
         ]);
 
         if($validatedData->fails()) {
-            return Redirect::route('manage-products')->withErrors($validatedData->messages());
+            return Redirect::route('changeProductPrice')->withErrors($validatedData->messages());
         }
 
         $errors = [];
 
-        if(!$this->isCurrency($request->selling_cost)) {
-            $errors[] = "Product Selling Cost must be decimal!";
+        if(!$this->isCurrency($request->selling_price)) {
+            $errors[] = "Product Selling Price must be decimal!";
         }
         if(count($errors)>0) {
             return Redirect::route('changeProductPrice', ['id'=>$request->product_id])->withErrors($errors);
@@ -211,9 +211,8 @@ class ProductController extends Controller
 
         $product_price = new Product_Price();
 
-        $product_price->selling_cost = $request->selling_cost;
+        $product_price->selling_price = $request->selling_price;
         $product_price->created_by = Auth::user()->id;
-        $product_price->updated_by = Auth::user()->id;
         $product_price->Product()->associate($product);
         $product_price->save();
 

@@ -29,8 +29,8 @@
                 <input type="hidden" name="product_id" value="{{ $product->id }}" />
 
                 <div class="form-group">
-                    <label for="input_selling_cost">Product Selling Cost</label>
-                    <input type="text" name="selling_cost" class="form-control" id="input_selling_cost" required>
+                    <label for="input_selling_price">Product Selling Price</label>
+                    <input type="text" name="selling_price" class="form-control" id="input_selling_price" required>
                 </div>
 
                 <button type="submit" class="btn btn-primary" >Update Price</button>
