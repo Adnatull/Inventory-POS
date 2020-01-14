@@ -13,4 +13,8 @@ class Unit extends Model
   public function UpdatedBy() {
       return $this->belongsTo('App\User', 'updated_by');
   }
+
+  public function Products() {
+      return $this->hasMany('App\Product', 'unit_id','id');
+  }
 }

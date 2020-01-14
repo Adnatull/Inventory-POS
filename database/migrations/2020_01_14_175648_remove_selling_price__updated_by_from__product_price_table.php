@@ -32,7 +32,7 @@ class RemoveSellingPriceUpdatedByFromProductPriceTable extends Migration
     {
         Schema::table('product__prices', function (Blueprint $table) {
             $table->decimal('selling_cost');
-            $table->bigInteger('updated_by');
+            $table->bigInteger('updated_by')->unsigned()->nullable();;
             $table->foreign('updated_by')->references('id')->on('users')->onUpdate('cascade')->onDelete('set null');
             $table->dropColumn('selling_price');
         });

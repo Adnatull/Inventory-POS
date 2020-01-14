@@ -44,4 +44,12 @@ class Product extends Model
       $price = $this->Prices()->where('product_id', $this->id)->orderBy('id', 'DESC')->first();
       return $price['selling_price'];
     }
+
+    public function Unit() {
+      return $this->belongsTo('App\Unit', 'unit_id', 'id');
+    }
+
+    public function Brand() {
+      return $this->belongsTo('App\Brand', 'brand_id', 'id');
+    }
 }

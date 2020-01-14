@@ -14,4 +14,8 @@ class Brand extends Model
   public function UpdatedBy() {
       return $this->belongsTo('App\User', 'updated_by');
   }
+
+  public function products() {
+      return $this->hasMany('App\Brand', 'brand_id','id');
+  }
 }

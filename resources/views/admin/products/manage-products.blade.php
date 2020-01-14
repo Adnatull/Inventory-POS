@@ -22,11 +22,11 @@
                 <th scope="col">Product Code</th>
                 <th scope="col">Product Name</th>
                 <th scope="col">Selling Cost</th>
-          <?php
-            // <th scope="col">Actual Cost</th>
-            //
-            //     <th scope="col">Quantity</th>
-                 ?>
+
+             <th scope="col">Unit</th>
+
+                <th scope="col">Brand</th>
+
                 <th scope="col">Status</th>
                 <th scope="col">Category</th>
                 <th scope="col">Created By</th>
@@ -42,12 +42,12 @@
                     <td>{{ $product->code }}</td>
                     <td>{{ $product->name }}</td>
                     <td>{{ $product->Current_Price() }}</td>
-                    <?php
-                    // <td>{{ $product->cost }}</td>
-                    //
-                    // <td>{{ $product->quantity }}</td>
-                    ?>
-                    <td>                
+
+                     <td>{{ $product->Unit['type'] }}</td>
+
+                    <td>{{ $product->Brand['name'] }}</td>
+
+                    <td>
                         @if($product->is_ready_for_sale == 1)
                             {{"Active" }}
                         @else

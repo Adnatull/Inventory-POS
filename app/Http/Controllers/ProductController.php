@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Product_Image;
 use App\Product_Price;
+use App\Unit;
+use App\Brand;
 use Faker\Provider\Image;
 use Illuminate\Http\Request;
 use App\Product;
@@ -39,7 +41,9 @@ class ProductController extends Controller
 
         return view('admin.products.add', [
             'code'=>$code,
-            'categories' => Category::get()
+            'categories' => Category::get(),
+            'brands' => Brand::get(),
+            'units' => Unit::get()
         ]);
     }
 
@@ -51,8 +55,8 @@ class ProductController extends Controller
         $validatedData = Validator::make($request->all(), [
             'code' => 'required|max:6|min:6|unique:products',
             'name' => 'required|max:191',
-            // 'cost' => 'required',
-            // 'selling_cost' => 'required',
+             'unit_id' => 'required',
+             'brand_id' => 'required',
             // 'quantity' => 'required|integer',
             'category_id' => 'required',
         ]);
@@ -64,10 +68,9 @@ class ProductController extends Controller
         $product = new Product();
         $product->code = $request->code;
         $product->name = $request->name;
-        // $product->cost = $request->cost;
-        // $product->selling_cost = $request->selling_cost;
-        // $product->quantity = $request->quantity;
         $product->category_id = $request->category_id;
+        $product->unit_id = $request->unit_id;
+        $product->brand_id = $request->brand_id;
         $product->created_by = Auth::user()->id;
         $product->updated_by = Auth::user()->id;
         $product->is_ready_for_sale = '1';
