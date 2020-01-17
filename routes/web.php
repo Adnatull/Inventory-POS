@@ -30,6 +30,13 @@ Route::group(['middleware' => ['auth']], function() {
         Route::post('/admin/products/unit/add', 'UnitController@postUnit')->name('add-unit');
         Route::get('/admin/products/unit/manage', 'UnitController@manageUnit')->name('manage-units');
 
+
+        Route::get('/admin/suppliers/add', 'SupplierController@create')->name('add-supplier');
+        Route::post('/admin/suppliers/add', 'SupplierController@store')->name('add-supplier');
+        Route::get('/admin/suppliers/manage', 'SupplierController@index')->name('manage-suppliers');
+        Route::get('/admin/suppliers/edit/{id}', 'SupplierController@edit')->name('edit-supplier');
+        Route::post('/admin/suppliers/edit/', 'SupplierController@update')->name('update-supplier');
+
     });
 
     Route::group(['middleware' => ['executive']], function() {

@@ -133,6 +133,19 @@
             </div>
         </li>
         @endif
+        @if(Auth::user()->hasRole('admin'))
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-fw fa-folder"></i>
+                <span>Suppliers</span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+                <h6 class="dropdown-header">Suppliers Screens:</h6>
+                <a class="dropdown-item" href="{{route('add-supplier')}}">Add New Supplier</a>
+                <a class="dropdown-item" href="{{route('manage-suppliers')}}">Manage Suppliers</a>
+            </div>
+        </li>
+        @endif
 
         @if(Auth::user()->hasRole('admin'))
         <li class="nav-item dropdown">
