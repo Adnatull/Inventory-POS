@@ -42,14 +42,12 @@ class ProductController extends Controller
             'name' => 'required|max:191',
              'unit_id' => 'required',
              'brand_id' => 'required',
-            // 'quantity' => 'required|integer',
             'category_id' => 'required',
         ]);
 
         if($validatedData->fails()) {
             return Redirect::action('ProductController@add')->withErrors($validatedData->messages());
         }
-
         $product = new Product();
         $product->code = $request->code;
         $product->name = $request->name;
@@ -59,21 +57,6 @@ class ProductController extends Controller
         $product->created_by = Auth::user()->id;
         $product->updated_by = Auth::user()->id;
         $product->is_ready_for_sale = '1';
-
-
-        // $errors = [];
-        //
-        // if(!$this->isCurrency($request->cost)) {
-        //     $errors[] = "The Product cost must be decimal!";
-        // }
-        //
-        // if(!$this->isCurrency($request->selling_cost)) {
-        //     $errors[] = "Product Selling Cost must be decimal!";
-        // }
-        //
-        // if(count($errors)>0) {
-        //     return Redirect::action('ProductController@add')->withErrors($errors);
-        // }
 
         try{
             $product->save();
