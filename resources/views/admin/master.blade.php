@@ -202,6 +202,20 @@
             </li>
         @endif
 
+        @if(Auth::user()->hasRole('executive'))
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Purchase Management</span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+
+                    <a class="dropdown-item" href="{{route('buy-products')}}">Purchase New Products</a>
+                    <a class="dropdown-item" href="{{route('see-all-purchases')}}">See All Purchases</a>
+                </div>
+            </li>
+        @endif
+
         @if(Auth::user()->hasRole('seller'))
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

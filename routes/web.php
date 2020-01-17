@@ -46,6 +46,11 @@ Route::group(['middleware' => ['auth']], function() {
         Route::get('/admin/products/manage-products/product/add-photos/{id}', 'ProductController@add_photos')->name('add-product-photos');
         Route::post('/admin/products/manage-products/product/submit-photos', 'ProductController@submitPhotos')->name('submitPhotos');
         Route::get('/admin/products/manage-products/product/view-photos/{id}', 'ProductController@viewPhotos')->name('viewPhotos');
+
+        Route::get('/admin/purchases/new', 'PurchaseController@create')->name('buy-products');
+        Route::post('/admin/purchases/add', 'PurchaseController@store')->name('purchase-products');
+        Route::get('/admin/purchases/manage', 'PurchaseController@index')->name('see-all-purchases');
+
     });
     Route::group(['middleware' => ['manager']], function() {
         Route::get('/admin/products/manage-products/product/photo/delete/{id}', 'ProductController@deleteProductPhoto')->name('deleteProductPhoto');
