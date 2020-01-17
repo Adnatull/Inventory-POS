@@ -32,4 +32,8 @@ class Helper {
 
     return $code;
   }
+
+  public static function isCurrency($number){
+      return preg_match("/^-?[0-9]+(?:\.[0-9]{1,2})?$/", $number);
+  }
 }
