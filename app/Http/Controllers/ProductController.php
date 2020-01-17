@@ -16,28 +16,13 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 use mysql_xdevapi\Exception;
+use Helper;
 
 class ProductController extends Controller
 {
     public function add() {
 
-        $unique = false;
-        $code = "";
-
-        $tested = [];
-        do{
-            $random = Str::random(6);
-            if( in_array($random, $tested) ){
-                continue;
-            }
-            $count = Product::where('code', $random)->count();
-            $tested[] = $random;
-            if( $count == 0){
-                $unique = true;
-                $code = $random;
-            }
-        }
-        while(!$unique);
+        $code = Helper::generateUniqueCode(6,"Product", "code");
 
         return view('admin.products.add', [
             'code'=>$code,
