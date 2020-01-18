@@ -31,7 +31,7 @@ class CategoryController extends Controller
         ]);
 
         if($validatedData->fails()) {
-            return Redirect::action('CategoryController@add_category')->withErrors($validatedData->messages());
+            return Redirect::action('CategoryController@add_category')->withErrors($validatedData->messages())->withInput();
         }
 
         $category = new Category();
@@ -89,7 +89,7 @@ class CategoryController extends Controller
         ]);
 
         if($validatedData->fails()) {
-            return Redirect::route('editCategory',['id'=>$request->id])->withErrors($validatedData->messages());
+            return Redirect::route('editCategory',['id'=>$request->id])->withErrors($validatedData->messages())->withInput();
           }
         $category = Category::find($request->id);
         if($category == null) {

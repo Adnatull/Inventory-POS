@@ -19,7 +19,7 @@
                 @csrf
                 <div class="form-group">
                     <label for="input_category_name">Category Name</label>
-                    <input type="text" name="title" class="form-control" id="input_category_name" required>
+                    <input type="text" name="title" class="form-control" value="{{old('title')}}" id="input_category_name" required>
                 </div>
 
                 <div class="form-group">

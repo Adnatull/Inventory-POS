@@ -30,7 +30,7 @@
 
                 <div class="form-group">
                     <label for="input_selling_price">Product Selling Price</label>
-                    <input type="text" name="selling_price" class="form-control" id="input_selling_price" required>
+                    <input type="text" name="selling_price" class="form-control" value="{{old('selling_price') != null ? old('selling_price') : $product->Current_Price()}}" id="input_selling_price" required>
                 </div>
 
                 <button type="submit" class="btn btn-primary" >Update Price</button>

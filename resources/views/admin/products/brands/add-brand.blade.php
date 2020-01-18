@@ -20,7 +20,7 @@
             @csrf
             <div class="form-group">
                 <label for="input_brand_name">Brand Name</label>
-                <input type="text" name="name" class="form-control" id="input_brand_name" required>
+                <input type="text" name="name" class="form-control" value="{{old('name')}}" id="input_brand_name" required>
             </div>
 
             <div class="form-group">

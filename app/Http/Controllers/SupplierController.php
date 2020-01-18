@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use mysql_xdevapi\Exception;
 
 use Helper;
 
@@ -50,12 +51,14 @@ class SupplierController extends Controller
       $validatedData = Validator::make($request->all(), [
           'supplier_code' => 'required|max:6|min:6|unique:suppliers',
           'supplier_name' => 'required|max:191',
-           'contact_person' => 'required',
-           'phone' => 'required|unique:suppliers',
+           'contact_person' => 'required|max:191',
+           'phone' => 'required|max:15|unique:suppliers',
+           'email' => 'nullable|email:rfc,dns',
+           'address' => 'nullable|max:191'
       ]);
 
       if($validatedData->fails()) {
-          return Redirect::route('add-supplier')->withErrors($validatedData->messages());
+          return Redirect::route('add-supplier')->withErrors($validatedData->messages())->withInput();
       }
       $supplier = new Supplier();
 
@@ -67,7 +70,7 @@ class SupplierController extends Controller
       if($request->email) {
         $findUniqueness = Supplier::where('email', $request->email)->count();
         if($findUniqueness>0) {
-          return Redirect::route('add-supplier')->withErrors("email already exists for another supplier!");
+          return Redirect::route('add-supplier')->withErrors("email already exists for another supplier!")->withInput();
         }
         else {
           $supplier->email = $request->email;
@@ -87,7 +90,7 @@ class SupplierController extends Controller
           $supplier->save();
       }
       catch(\Exception $e) {
-          return Redirect::route('add-supplier')->withErrors("The data has been tempered in midway! try again");
+          return Redirect::route('add-supplier')->withErrors("The data has been tempered in midway! try again")->withInput();
       }
       return redirect(route('manage-suppliers'));
     }
@@ -133,7 +136,7 @@ class SupplierController extends Controller
       ]);
 
       if($validatedData->fails()) {
-          return Redirect::route('manage-suppliers')->withErrors($validatedData->messages());
+          return Redirect::route('edit-supplier', ['id' => $request->id])->withErrors($validatedData->messages())->withInput();
       }
       $supplier = Supplier::find($request->id);
 
@@ -144,7 +147,7 @@ class SupplierController extends Controller
       if($supplier->phone != $request->phone) {
         $findUniqueness = Supplier::where('phone', $request->phone)->count();
         if($findUniqueness>0) {
-          return Redirect::route('manage-suppliers')->withErrors("Phone already exists for another supplier!");
+          return Redirect::route('edit-supplier', ['id' => $request->id])->withErrors("Phone already exists for another supplier!")->withInput();
         }
         else {
           $supplier->phone = $request->phone;
@@ -159,7 +162,7 @@ class SupplierController extends Controller
         if($supplier->email != $request->email) {
           $findUniqueness = Supplier::where('email', $request->email)->count();
           if($findUniqueness>0) {
-            return Redirect::route('manage-suppliers')->withErrors("email already exists for another supplier!");
+            return Redirect::route('edit-supplier', ['id' => $request->id])->withErrors("email already exists for another supplier!")->withInput();
           }
           else {
             $supplier->email = $request->email;
@@ -179,7 +182,7 @@ class SupplierController extends Controller
           $supplier->save();
       }
       catch(\Exception $e) {
-          return Redirect::route('manage-suppliers')->withErrors("The data has been tempered in midway! try again");
+          return Redirect::route('edit-supplier', ['id' => $request->id])->withErrors("The data has been tempered in midway! try again")->withInput();
       }
       return redirect(route('manage-suppliers'));
     }

@@ -22,24 +22,8 @@
 
                 <div class="form-group">
                     <label for="input_product_name">Product Name</label>
-                    <input type="text" name="name" class="form-control" id="input_product_name" required>
+                    <input type="text" name="name" class="form-control" value="{{old('name')}}" id="input_product_name" required>
                 </div>
-<?php
-                // <div class="form-group">
-                //     <label for="input_cost">Product Cost</label>
-                //     <input type="text" name="cost" class="form-control" id="input_cost" required>
-                // </div>
-                //
-                // <div class="form-group">
-                //     <label for="input_selling_cost">Product Selling Cost</label>
-                //     <input type="text" name="selling_cost" class="form-control" id="input_selling_cost" required>
-                // </div>
-                //
-                // <div class="form-group">
-                //     <label for="input_quantity">Quantity</label>
-                //     <input type="text" name="quantity" class="form-control" id="input_quantity" required>
-                // </div>
-                ?>
 
                 <div class="form-group">
                     <label for="input_brand">Brand</label>

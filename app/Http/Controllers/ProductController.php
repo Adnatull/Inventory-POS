@@ -46,7 +46,7 @@ class ProductController extends Controller
         ]);
 
         if($validatedData->fails()) {
-            return Redirect::action('ProductController@add')->withErrors($validatedData->messages());
+            return Redirect::action('ProductController@add')->withErrors($validatedData->messages())->withInput();
         }
         $product = new Product();
         $product->code = $request->code;
@@ -62,7 +62,7 @@ class ProductController extends Controller
             $product->save();
         }
         catch(\Exception $e) {
-            return Redirect::action('ProductController@add')->withErrors("The data has been tempered in midway! try again");
+            return Redirect::action('ProductController@add')->withErrors("The data has been tempered in midway! try again")->withInput();
         }
         return redirect(route('manage-products'));
     }
@@ -166,7 +166,7 @@ class ProductController extends Controller
         ]);
 
         if($validatedData->fails()) {
-            return Redirect::route('changeProductPrice')->withErrors($validatedData->messages());
+            return Redirect::route('changeProductPrice', ['id'=>$request->product_id])->withErrors($validatedData->messages())->withInput();
         }
 
         $errors = [];
@@ -175,7 +175,7 @@ class ProductController extends Controller
             $errors[] = "Product Selling Price must be decimal!";
         }
         if(count($errors)>0) {
-            return Redirect::route('changeProductPrice', ['id'=>$request->product_id])->withErrors($errors);
+            return Redirect::route('changeProductPrice', ['id'=>$request->product_id])->withErrors($errors)->withInput();
         }
 
         $product = Product::find($request->product_id);

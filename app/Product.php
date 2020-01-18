@@ -42,6 +42,9 @@ class Product extends Model
 
     public function Current_Price() {
       $price = $this->Prices()->where('product_id', $this->id)->orderBy('id', 'DESC')->first();
+      if($price == null) {
+        return 0;
+      }
       return $price['selling_price'];
     }
 

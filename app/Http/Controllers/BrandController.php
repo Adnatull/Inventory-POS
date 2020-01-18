@@ -22,7 +22,7 @@ class BrandController extends Controller
       ]);
 
       if($validatedData->fails()) {
-          return Redirect::route('add-brand')->withErrors($validatedData->messages());
+          return Redirect::route('add-brand')->withErrors($validatedData->messages())->withInput();
       }
 
       $brand = new Brand();
@@ -73,7 +73,7 @@ class BrandController extends Controller
       ]);
 
       if($validatedData->fails()) {
-          return Redirect::route('edit-brand',['id'=>$request->id])->withErrors($validatedData->messages());
+          return Redirect::route('edit-brand',['id'=>$request->id])->withErrors($validatedData->messages())->withInput();
         }
       $brand = Brand::find($request->id);
       if($brand == null) {

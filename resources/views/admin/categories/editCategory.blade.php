@@ -21,7 +21,7 @@
                 <input type="hidden" name="id" value="{{ $category->id }}">
                 <div class="form-group">
                     <label for="input_category_name">Category Name</label>
-                    <input type="text" name="title" class="form-control" id="input_category_name" value="{{ $category->title }}" required>
+                    <input type="text" name="title" class="form-control" id="input_category_name" value="{{ old('title') != null ? old('title') : $category->title }}" required>
                 </div>
 
                 <div class="form-group">
