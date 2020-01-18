@@ -51,6 +51,10 @@ Route::group(['middleware' => ['auth']], function() {
         Route::post('/admin/purchases/add', 'PurchaseController@store')->name('purchase-products');
         Route::get('/admin/purchases/manage', 'PurchaseController@index')->name('see-all-purchases');
 
+        Route::get('/admin/customers/add', 'CustomerController@create')->name('add-customer');
+        Route::post('/admin/customers/add', 'CustomerController@store')->name('add-customer');
+        Route::get('/admin/customers/manage', 'CustomerController@index')->name('manage-customers');
+
     });
     Route::group(['middleware' => ['manager']], function() {
         Route::get('/admin/products/manage-products/product/photo/delete/{id}', 'ProductController@deleteProductPhoto')->name('deleteProductPhoto');
@@ -61,6 +65,8 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::group(['middleware' => ['seller']], function() {
         Route::get('/admin/products/sale', 'TransactionController@sell')->name('sell-products');
+
+
     });
 
 });

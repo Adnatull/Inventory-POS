@@ -215,6 +215,19 @@
                 </div>
             </li>
         @endif
+        @if(Auth::user()->hasRole('executive'))
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Customers Management</span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+
+                    <a class="dropdown-item" href="{{route('add-customer')}}">Add New Customer</a>
+                    <a class="dropdown-item" href="{{route('manage-customers')}}">See All Customers</a>
+                </div>
+            </li>
+        @endif
 
         @if(Auth::user()->hasRole('seller'))
             <li class="nav-item dropdown">
