@@ -21,8 +21,11 @@
 
     <!-- Custom styles for this template-->
     <link href="{{asset('/')}}AdminAssets/css/sb-admin.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
     <link rel="stylesheet" type="text/css" href="{{ asset('/') }}AdminAssets/css/sb-admin.css" />
+
+    @stack('customcss')
 
 </head>
 
@@ -254,7 +257,7 @@
         </li>
     </ul>
 
-    <div id="content-wrapper">
+    <div >
 
         <div class="container-fluid">
 
@@ -264,7 +267,7 @@
         <!-- /.container-fluid -->
 
         <!-- Sticky Footer -->
-        <footer class="sticky-footer">
+        <footer class="r">
             <div class="container my-auto">
                 <div class="copyright text-center my-auto">
                     <span>Copyright © Your Website 2019</span>
@@ -323,7 +326,7 @@
 
 
 
-@stack('jscripts');
+@stack('jscripts')
 
 
 </body>

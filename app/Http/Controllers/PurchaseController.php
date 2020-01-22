@@ -36,7 +36,7 @@ class PurchaseController extends Controller
     {
         $suppliers = Supplier::get();
         $products = Product::get();
-        return view('admin.purchases.purchase-products', [
+        return view('admin.purchases.purchase-productsV1', [
           'suppliers' => $suppliers,
           'products' => $products
         ]);
