@@ -36,6 +36,11 @@ class Product extends Model
         return true;
     }
 
+    public function getRandomImage() {
+      $image = $this->Images->random(1)->first();
+      return $image;
+    }
+
     public function Prices() {
         return $this->hasMany('App\Product_Price', 'product_id', 'id');
     }
