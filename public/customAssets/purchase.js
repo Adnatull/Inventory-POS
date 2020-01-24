@@ -78,8 +78,35 @@ $(document).ready(function(){
 
   window.setTimeout(function(){$(".is-open").removeClass("is-open")}, 1200);
 
-  $(".btn").click(function(){
+  $(".btn1").click(function(){
     check = true;
     $(".remove").click();
   });
 });
+
+$.ajaxSetup({
+  headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  }
+});
+
+function searchProducts() {
+  var searchTxt = document.getElementById("input_search_products").value;
+  var category = document.getElementById("input_category").value;
+  var brand = document.getElementById("input_brand").value;
+  console.log(searchTxt);
+  console.log(category);
+  console.log(brand);
+
+  $.ajax({
+           type:'POST',
+           url:"/admin/purchases/search",
+           data:{product:searchTxt, categoryId:category, brandId:brand},
+           success:function(data){
+              //alert(data.success);
+              console.log(data.success);
+           },
+
+        });
+
+}

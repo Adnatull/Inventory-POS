@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Purchase;
 use App\Supplier;
 use App\Product;
+use App\Category;
+use App\Brand;
 use Illuminate\Http\Request;
 use Helper;
 
@@ -34,11 +36,15 @@ class PurchaseController extends Controller
      */
     public function create()
     {
-        $suppliers = Supplier::get();
-        $products = Product::get();
+        $suppliers = Supplier::where('status', true)->get();
+        $products = Product::where('is_ready_for_sale', true)->get();
+        $categories = Category::where('status', true)->get();
+        $brands = Brand::where('status', true)->get();
         return view('admin.purchases.purchase-productsV1', [
-          'suppliers' => $suppliers,
-          'products' => $products
+          'suppliers'   => $suppliers,
+          'products'    => $products,
+          'categories'  => $categories,
+          'brands'      => $brands
         ]);
     }
 
@@ -145,4 +151,67 @@ class PurchaseController extends Controller
     {
         //
     }
+
+    /**
+     * Search products.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return void
+     */
+     public function search(Request $request)
+     {
+      //  $input = $request->all();
+      // \Log::info($input);
+
+      $validatedData = Validator::make($request->all(), [
+          'categoryId' => 'required|integer',
+          'brandId' => 'required|integer',
+          // 'product' => 'required',
+      ]);
+
+      if($validatedData->fails()) {
+      //    return Redirect::route('buy-products')->withErrors($validatedData->messages())->withInput();
+          return response()->json(['errors'=>$validatedData->messages()]);
+      }
+      $categoryId = $request->categoryId;
+      $brandId = $request->brandId;
+      $productTxt = $request->product;
+      $products = null;
+      if($request->categoryId == 0 && $request->brandId == 0) {
+        $products = Product::where(function($query) use($productTxt) {
+              $query->where('name', 'ilike', '%'.$productTxt.'%')
+                    ->orWhere('code', 'ilike', '%'.$productTxt.'%');
+            });
+      } else if($request->categoryId == 0) {
+        $products = Product::where( function($query) use($brandId) {
+              $query->where('brand_id', $brandId);
+            })->where(function($query) use($productTxt) {
+              $query->where('name', 'ilike', '%'.$productTxt.'%')
+                    ->orWhere('code', 'ilike', '%'.$productTxt.'%');
+            });
+      } else if ($request->brandId == 0) {
+        $products = Product::where( function($query) use($categoryId) {
+              $query->where('category_id', $categoryId);
+            })->where(function($query) use($productTxt) {
+              $query->where('name', 'ilike', '%'.$productTxt.'%')
+                    ->orWhere('code', 'ilike', '%'.$productTxt.'%');
+            });
+      } else {
+        $products = Product::where( function($query) use($categoryId, $brandId) {
+              $query->where([ ['category_id', $categoryId],
+                            ['brand_id', $brandId]
+                        ]);
+            })->where(function($query) use($productTxt) {
+              $query->where('name', 'ilike', '%'.$productTxt.'%')
+                    ->orWhere('code', 'ilike', '%'.$productTxt.'%');
+            });
+      }
+
+
+
+      return response()->json(['success'=>$products->count()]);
+     }
+
+
+
 }

@@ -26,6 +26,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('/') }}AdminAssets/css/sb-admin.css" />
 
     @stack('customcss')
+    
 
 </head>
 
@@ -257,7 +258,7 @@
         </li>
     </ul>
 
-    <div >
+    <div id="content-wrapper" >
 
         <div class="container-fluid">
 
@@ -267,7 +268,7 @@
         <!-- /.container-fluid -->
 
         <!-- Sticky Footer -->
-        <footer class="r">
+        <footer class="sticky-footer">
             <div class="container my-auto">
                 <div class="copyright text-center my-auto">
                     <span>Copyright © Your Website 2019</span>
