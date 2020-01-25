@@ -32,8 +32,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="input_category_name">Status</label>
-                    <select class="form-control" name="status" id="input_parent_category">
+                    <label for="input_status">Status</label>
+                    <select class="form-control" name="status" id="input_status">
 
                         @if($category->status ==  0)
                             <option value="0" selected> Inactive </option>
