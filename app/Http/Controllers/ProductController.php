@@ -22,7 +22,7 @@ class ProductController extends Controller
 {
     public function add() {
 
-        $code = Helper::generateUniqueCode(6,"Product", "code");
+        $code = Helper::generateUniqueCode(4,"Product", "code");
 
         return view('admin.products.add', [
             'code'=>$code,
@@ -38,7 +38,7 @@ class ProductController extends Controller
 
     public function submitProduct(Request $request) {
         $validatedData = Validator::make($request->all(), [
-            'code' => 'required|max:6|min:6|unique:products',
+            'code' => 'required|max:6|min:4|unique:products',
             'name' => 'required|max:191',
              'unit_id' => 'required',
              'brand_id' => 'required',

@@ -34,7 +34,7 @@ class SupplierController extends Controller
      */
     public function create()
     {
-        $code = Helper::generateUniqueCode(6,"Supplier", "supplier_code");
+        $code = Helper::generateUniqueCode(4,"Supplier", "supplier_code");
         return view("admin.suppliers.add", [
           'code' => $code
         ]);
@@ -49,7 +49,7 @@ class SupplierController extends Controller
     public function store(Request $request)
     {
       $validatedData = Validator::make($request->all(), [
-          'supplier_code' => 'required|max:6|min:6|unique:suppliers',
+          'supplier_code' => 'required|max:6|min:4|unique:suppliers',
           'supplier_name' => 'required|max:191',
            'contact_person' => 'required|max:191',
            'phone' => 'required|max:15|unique:suppliers',
