@@ -183,22 +183,22 @@ class PurchaseController extends Controller
       if($request->categoryId == 0 && $request->brandId == 0) {
         $products = Product::where(function($query) use($productTxt) {
               $query->where('name', 'LIKE', '%'.$productTxt.'%')
-                    ->orWhere('code', 'LIKE', '%'.$productTxt.'%');
-            })->get();
+                    ->orWhere('code', $productTxt);
+            })->with(['Category:id,title', 'Unit:id,type', 'Brand:id,name'])->get();
       } else if($request->categoryId == 0) {
         $products = Product::where( function($query) use($brandId) {
               $query->where('brand_id', $brandId);
             })->where(function($query) use($productTxt) {
               $query->where('name', 'LIKE', '%'.$productTxt.'%')
-                    ->orWhere('code', 'LIKE', '%'.$productTxt.'%');
-            })->get();
+                    ->orWhere('code', $productTxt);
+            })->with(['Category:id,title', 'Unit:id,type', 'Brand:id,name'])->get();
       } else if ($request->brandId == 0) {
         $products = Product::where( function($query) use($categoryId) {
               $query->where('category_id', $categoryId);
             })->where(function($query) use($productTxt) {
               $query->where('name', 'LIKE', '%'.$productTxt.'%')
-                    ->orWhere('code', 'LIKE', '%'.$productTxt.'%');
-            })->get();
+                    ->orWhere('code', $productTxt);
+            })->with(['Category:id,title', 'Unit:id,type', 'Brand:id,name'])->get();
       } else {
         $products = Product::where( function($query) use($categoryId, $brandId) {
               $query->where([ ['category_id', $categoryId],
@@ -206,9 +206,12 @@ class PurchaseController extends Controller
                         ]);
             })->where(function($query) use($productTxt) {
               $query->where('name', 'LIKE', '%'.$productTxt.'%')
-                    ->orWhere('code', 'LIKE', '%'.$productTxt.'%');
-            })->get();
+                    ->orWhere('code', $productTxt);
+            })->with(['Category:id,title', 'Unit:id,type', 'Brand:id,name'])->get();
       }
+
+    //  $products = Product::with(['Category',  'Unit', 'Brand'])->get();
+
 
       return response()->json(['success'=>$products]);
      }
