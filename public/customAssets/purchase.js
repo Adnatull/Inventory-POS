@@ -1,3 +1,5 @@
+
+
 var check = false;
 
 function changeVal(el) {
@@ -84,19 +86,22 @@ $(document).ready(function(){
   });
 });
 
-$.ajaxSetup({
-  headers: {
-      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-  }
-});
+
 
 function searchProducts() {
+
   var searchTxt = document.getElementById("input_search_products").value;
   var category = document.getElementById("input_category").value;
   var brand = document.getElementById("input_brand").value;
   console.log(searchTxt);
   console.log(category);
   console.log(brand);
+
+  $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
 
   $.ajax({
            type:'POST',

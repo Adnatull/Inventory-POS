@@ -13,6 +13,9 @@ use Helper;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Database\Eloquent\Collection;
+// use Illuminate\Support\Collection;
+
 
 class PurchaseController extends Controller
 {
@@ -179,37 +182,35 @@ class PurchaseController extends Controller
       $products = null;
       if($request->categoryId == 0 && $request->brandId == 0) {
         $products = Product::where(function($query) use($productTxt) {
-              $query->where('name', 'ilike', '%'.$productTxt.'%')
-                    ->orWhere('code', 'ilike', '%'.$productTxt.'%');
-            });
+              $query->where('name', 'LIKE', '%'.$productTxt.'%')
+                    ->orWhere('code', 'LIKE', '%'.$productTxt.'%');
+            })->get();
       } else if($request->categoryId == 0) {
         $products = Product::where( function($query) use($brandId) {
               $query->where('brand_id', $brandId);
             })->where(function($query) use($productTxt) {
-              $query->where('name', 'ilike', '%'.$productTxt.'%')
-                    ->orWhere('code', 'ilike', '%'.$productTxt.'%');
-            });
+              $query->where('name', 'LIKE', '%'.$productTxt.'%')
+                    ->orWhere('code', 'LIKE', '%'.$productTxt.'%');
+            })->get();
       } else if ($request->brandId == 0) {
         $products = Product::where( function($query) use($categoryId) {
               $query->where('category_id', $categoryId);
             })->where(function($query) use($productTxt) {
-              $query->where('name', 'ilike', '%'.$productTxt.'%')
-                    ->orWhere('code', 'ilike', '%'.$productTxt.'%');
-            });
+              $query->where('name', 'LIKE', '%'.$productTxt.'%')
+                    ->orWhere('code', 'LIKE', '%'.$productTxt.'%');
+            })->get();
       } else {
         $products = Product::where( function($query) use($categoryId, $brandId) {
               $query->where([ ['category_id', $categoryId],
                             ['brand_id', $brandId]
                         ]);
             })->where(function($query) use($productTxt) {
-              $query->where('name', 'ilike', '%'.$productTxt.'%')
-                    ->orWhere('code', 'ilike', '%'.$productTxt.'%');
-            });
+              $query->where('name', 'LIKE', '%'.$productTxt.'%')
+                    ->orWhere('code', 'LIKE', '%'.$productTxt.'%');
+            })->get();
       }
 
-
-
-      return response()->json(['success'=>$products->count()]);
+      return response()->json(['success'=>$products]);
      }
 
 
