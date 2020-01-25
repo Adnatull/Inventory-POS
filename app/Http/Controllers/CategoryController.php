@@ -98,8 +98,10 @@ class CategoryController extends Controller
 
         $category->title = $request->title;
 
+        if($request->parent_id>0) {
+          $category->parent_id =  $request->parent_id;
+        }
 
-        $category->parent_id =  $request->parent_id;
 
         if(request()->image) {
             $content = file_get_contents(request()->image);
