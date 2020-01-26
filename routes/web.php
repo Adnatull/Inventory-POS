@@ -51,6 +51,7 @@ Route::group(['middleware' => ['auth']], function() {
         Route::post('/admin/purchases/add', 'PurchaseController@store')->name('purchase-products');
         Route::get('/admin/purchases/manage', 'PurchaseController@index')->name('see-all-purchases');
         Route::post('/admin/purchases/search', 'PurchaseController@search')->name('ajax-search-products');
+        Route::get('/admin/purchases/getSingleAjax/{id}', 'PurchaseController@getSingleAjax')->name('ajax-get-single');
 
         Route::get('/admin/customers/add', 'CustomerController@create')->name('add-customer');
         Route::post('/admin/customers/add', 'CustomerController@store')->name('add-customer');

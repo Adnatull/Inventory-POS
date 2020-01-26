@@ -89,7 +89,8 @@ $(document).ready(function(){
 
 
 function searchProducts() {
-
+  var productsFromDb = document.getElementById("ProductsFromDB");
+  removeChilds(productsFromDb);
   var searchTxt = document.getElementById("input_search_products").value;
   var category = document.getElementById("input_category").value;
   var brand = document.getElementById("input_brand").value;
@@ -110,8 +111,116 @@ function searchProducts() {
            success:function(data){
               //alert(data.success);
               console.log(data.success);
+              ProcessDropDown(data.success);
            },
 
         });
+}
 
+function removeChilds(node) {
+  node.innerHTML = " ";
+}
+
+function ProcessDropDown(data) {
+
+  var productsFromDb = document.getElementById("ProductsFromDB");
+
+  var thead = document.createElement("thead");
+  var tr = document.createElement("tr");
+  var th = document.createElement("th");
+  th.setAttribute('scope', 'col');
+  th.innerHTML = "#";
+  tr.appendChild(th);
+  var th = document.createElement("th");
+  th.setAttribute('scope', 'col');
+  th.innerHTML = "Code";
+  tr.appendChild(th);
+  var th = document.createElement("th");
+  th.setAttribute('scope', 'col');
+  th.innerHTML = "Product";
+  tr.appendChild(th);
+  var th = document.createElement("th");
+  th.setAttribute('scope', 'col');
+  th.innerHTML = "Brand";
+  tr.appendChild(th);
+  var th = document.createElement("th");
+  th.setAttribute('scope', 'col');
+  th.innerHTML = "Category";
+  tr.appendChild(th);
+  var th = document.createElement("th");
+  th.setAttribute('scope', 'col');
+  th.innerHTML = "Unit";
+  tr.appendChild(th);
+  var th = document.createElement("th");
+  th.setAttribute('scope', 'col');
+  th.innerHTML = "Action";
+  tr.appendChild(th);
+  thead.appendChild(tr);
+  productsFromDb.appendChild(thead);
+
+  var tbody = document.createElement('tbody');
+
+
+
+
+
+  for(var i =0; i < data.length; i++) {
+    var tr = document.createElement('tr');
+    var th = document.createElement("th");
+    th.setAttribute('scope', 'row');
+    th.innerHTML = data[i].id;
+    tr.appendChild(th);
+
+    var td = document.createElement('td');
+    td.innerHTML = data[i].code;
+    tr.appendChild(td);
+    var td = document.createElement('td');
+    td.innerHTML = data[i].name;
+    tr.appendChild(td);
+    var td = document.createElement('td');
+    td.innerHTML = data[i].brand.name;
+    tr.appendChild(td);
+    var td = document.createElement('td');
+    td.innerHTML = data[i].category.title;
+    tr.appendChild(td);
+    var td = document.createElement('td');
+    td.innerHTML = data[i].unit.type;
+    tr.appendChild(td);
+    var td = document.createElement('td');
+
+    var a = document.createElement('a');
+    a.setAttribute('type', 'button');
+    a.setAttribute('class', 'btn btn-outline-dark');
+    a.setAttribute('href', '#');
+    a.setAttribute('onClick', 'appendThisProduct('+data[i].id+')');
+    a.innerHTML = "Select";
+    td.appendChild(a);
+
+
+    tr.appendChild(td);
+
+
+    tbody.appendChild(tr);
+  }
+  productsFromDb.appendChild(tbody);
+}
+
+function appendThisProduct(id) {
+  console.log(id);
+  $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
+
+  $.ajax({
+           type:'GET',
+           url:"/admin/purchases/getSingleAjax/"+id,
+           dataType: 'json',
+           success:function(data){
+              //alert(data.success);
+              console.log(data.success);
+           },
+
+        });
 }

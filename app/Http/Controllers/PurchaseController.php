@@ -216,6 +216,11 @@ class PurchaseController extends Controller
       return response()->json(['success'=>$products]);
      }
 
+     public function getSingleAjax($id) {
+       $product = Product::find($id);
+       return response()->json(['success'=>$product]);
+     }
+
 
 
 }

@@ -62,6 +62,16 @@
   </section>
 </div>
 
+<div class="container">
+  <section id="cart" >
+    <table class="table" id="ProductsFromDB">
+      
+    </table>
+
+  </section>
+
+</div>
+
 
 
 <form method="POST" action="{{route('purchase-products')}}" >
