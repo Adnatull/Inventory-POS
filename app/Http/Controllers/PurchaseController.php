@@ -211,14 +211,41 @@ class PurchaseController extends Controller
       }
 
     //  $products = Product::with(['Category',  'Unit', 'Brand'])->get();
+      $all = array();
+      $i = 0;
+      foreach($products as $product) {
+        $all[$i]['id']        = $product->id;
+        $all[$i]['code']      = $product->code;
+        $all[$i]['name']      = $product->name;
+        $all[$i]['brand']     = $product->brand->name;
+        $all[$i]['category']  = $product->category->title;
+        $all[$i]['unit']      = $product->unit->type;
+        $i++;
+      }
 
 
-      return response()->json(['success'=>$products]);
+      return response()->json(['success'=>$all]);
      }
 
      public function getSingleAjax($id) {
-       $product = Product::find($id);
-       return response()->json(['success'=>$product]);
+       $product = Product::with(['Category:id,title', 'Unit:id,type', 'Brand:id,name'])->find($id);
+       if($product == null) {
+          return response()->json(['fail'=>"fail"]);
+        }
+
+       $single = array();
+       if(Product::find($id)->HasImages()) {
+         $img = Product::find($id)->getRandomImage();
+         $single['img'] = $img->image;
+       }
+       $single['id'] = $id;
+       $single['code'] = $product->code;
+       $single['name'] = $product->name;
+       $single['brand'] = $product->brand->name;
+       $single['category'] = $product->category->title;
+       $single['unit'] = $product->unit->type;
+
+       return response()->json(['success'=>$single]);
      }
 
 

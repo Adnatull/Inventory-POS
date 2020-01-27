@@ -168,7 +168,7 @@ function ProcessDropDown(data) {
     var tr = document.createElement('tr');
     var th = document.createElement("th");
     th.setAttribute('scope', 'row');
-    th.innerHTML = data[i].id;
+    th.innerHTML = i+1;
     tr.appendChild(th);
 
     var td = document.createElement('td');
@@ -178,13 +178,13 @@ function ProcessDropDown(data) {
     td.innerHTML = data[i].name;
     tr.appendChild(td);
     var td = document.createElement('td');
-    td.innerHTML = data[i].brand.name;
+    td.innerHTML = data[i].brand;
     tr.appendChild(td);
     var td = document.createElement('td');
-    td.innerHTML = data[i].category.title;
+    td.innerHTML = data[i].category;
     tr.appendChild(td);
     var td = document.createElement('td');
-    td.innerHTML = data[i].unit.type;
+    td.innerHTML = data[i].unit;
     tr.appendChild(td);
     var td = document.createElement('td');
 
@@ -192,7 +192,7 @@ function ProcessDropDown(data) {
     a.setAttribute('type', 'button');
     a.setAttribute('class', 'btn btn-outline-dark');
     a.setAttribute('href', '#');
-    a.setAttribute('onClick', 'appendThisProduct('+data[i].id+')');
+    a.setAttribute('onClick', 'getThisProduct('+data[i].id+')');
     a.innerHTML = "Select";
     td.appendChild(a);
 
@@ -205,7 +205,7 @@ function ProcessDropDown(data) {
   productsFromDb.appendChild(tbody);
 }
 
-function appendThisProduct(id) {
+function getThisProduct(id) {
   console.log(id);
   $.ajaxSetup({
     headers: {
@@ -220,7 +220,95 @@ function appendThisProduct(id) {
            success:function(data){
               //alert(data.success);
               console.log(data.success);
+              appendThisProduct(data.success);
            },
 
         });
+}
+
+function appendThisProduct(data) {
+  var listOfProducts = document.getElementById('listOfProducts');
+
+  var article = document.createElement('article');
+  article.setAttribute('class', 'product');
+
+  var header = document.createElement('header');
+
+  var a = document.createElement('a');
+  a.setAttribute('class', 'remove');
+
+  var img = document.createElement('img');
+  if(data.img) {
+    img.setAttribute('src', data.img);
+  } else {
+    img.setAttribute('src', "/Images/Image-Unavailable.jpg");
+  }
+  var h3 = document.createElement('h3');
+  h3.innerHTML = "Remove produc";
+  a.appendChild(img);
+  a.appendChild(h3);
+
+  header.appendChild(a);
+  article.appendChild(header);
+
+  var content = document.createElement('div');
+  content.setAttribute('class', 'content');
+
+  var h1 = document.createElement('h1');
+  h1.innerHTML = data.name;
+  content.appendChild(h1);
+  var des = document.createElement('p');
+  des.innerHTML = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta, numquam quis perspiciatis ea ad omnis provident laborum dolore in atque.";
+  //var description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta, numquam quis perspiciatis ea ad omnis provident laborum dolore in atque.";
+  content.appendChild(des);
+
+
+  var selected = document.createElement('div');
+  selected.setAttribute('title', 'You have selected this product to be shipped in the color yellow.');
+  selected.setAttribute('style', 'top: 0');
+  selected.setAttribute('class', 'color yellow');
+  content.appendChild(selected);
+
+  var unit = document.createElement('div');
+  unit.setAttribute('style', 'top: 43px');
+  unit.setAttribute('class', 'type small');
+  unit.innerHTML = data.unit;
+  content.appendChild(unit);
+  article.appendChild(content);
+
+  var footer = document.createElement('footer');
+  footer.setAttribute('class', 'content');
+
+  var qt_minus = document.createElement('span');
+  qt_minus.setAttribute('class', 'qt-minus');
+  qt_minus.innerHTML = "-";
+  footer.appendChild(qt_minus);
+
+  var qt = document.createElement('span');
+  qt.setAttribute('class', 'qt');
+  qt.innerHTML = "1";
+  footer.appendChild(qt);
+
+  var qt_plus = document.createElement('span');
+  qt_plus.setAttribute('class', 'qt-plus');
+  qt_plus.innerHTML = "+";
+  footer.appendChild(qt_plus);
+
+  var full_price = document.createElement('h2');
+  full_price.setAttribute('class', 'full-price');
+  full_price.innerHTML = "14€";
+  footer.appendChild(full_price);
+
+  var price = document.createElement('h2');
+  price.setAttribute('class', 'price');
+  price.innerHTML = "14€";
+  footer.appendChild(price);
+
+  article.appendChild(footer);
+
+
+
+  listOfProducts.appendChild(article);
+
+
 }
