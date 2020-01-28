@@ -54,9 +54,10 @@
         <label for="input_search">Search</label>
         <input type="text" name="searchProducts" class="form-control" id="input_search_products"  required>
 
-        <button type="submit" name="searchButton" id="searchButton" class="btn btn-primary" onClick="searchProducts()">
+        <button type="submit" name="searchButton" id="searchButton" class="btn btn-primary" onClick="searchProducts(this)">
           Search
         </button>
+
 
     </div>
   </section>
