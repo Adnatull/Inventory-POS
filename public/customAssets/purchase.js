@@ -61,8 +61,10 @@ function changeTotal() {
 
   price = Math.round(price * 100) / 100;
   //var tax = Math.round(price * 0.05 * 100) / 100
-  // var shipping = parseFloat($(".shipping span").html());
-  var fullPrice = Math.round((price) *100) / 100;
+  var discount = document.getElementById("discount").value;
+  discount = parseFloat(discount);
+  console.log(discount);
+  var fullPrice = Math.round((price - discount) *100) / 100;
 
   if(price == 0) {
     fullPrice = 0;
@@ -71,6 +73,12 @@ function changeTotal() {
   $(".subtotal span").html(price);
   // $(".tax span").html(tax);
   $(".total span").html(fullPrice);
+}
+
+function changeDiscount(el) {
+  var discount = document.getElementById("discount");
+  discount.value = parseFloat(discount.value);
+  changeTotal();
 }
 
 
@@ -320,6 +328,7 @@ function appendThisProduct(data) {
   var price = document.createElement('input');
   price.setAttribute('class', 'price priceSingle');
   price.setAttribute('type', 'text');
+  price.setAttribute('value', '0');
   price.setAttribute('placeholder', 'unit price');
   price.setAttribute('onchange', 'changeVal(this)');
   price.setAttribute('name', 'price[]');

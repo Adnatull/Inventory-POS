@@ -112,7 +112,9 @@
   <div class="container clearfix">
 
     <div class="left">
-        <h2 class="subtotal">Subtotal: <span>163.96</span>৳</h2>
+        <h2 class="subtotal">Subtotal: <span>0</span>৳</h2>
+        <h2 class="discount">Discount: <input type="text" name="discount" id="discount" value="0" onchange="changeDiscount(this)"/>৳</h2>
+
 
       <?php
           // <h3 class="tax">Taxes (5%): <span>8.2</span>€</h3>
@@ -122,7 +124,7 @@
     </div>
 
     <div class="right">
-      <h1 class="total">Total: <span>177.16</span>€</h1>
+      <h1 class="total">Total: <span>0</span>৳</h1>
       <a class="btn1">Checkout</a>
     </div>
 
