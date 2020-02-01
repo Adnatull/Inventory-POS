@@ -121,21 +121,21 @@
         </div>
 
         <footer class="content">
-          <span class="qt-minus">-</span>
+          <span class="qt-minus" onclick="qtMinus(this)">-</span>
           <?php
           //  <span class="qt">2</span>
           ?>
-          <div>
-              <input type="text" name="quantity[]"  class="qt-plus quantity" value="1"/>
-          </div>
 
-          <span class="qt-plus">+</span>
+          <input type="text" name="quantity[]"  class="qt-plus quantity" value="1" onchange="changeVal(this)" />
+
+
+          <span class="qt-plus" onclick="qtPlus(this)">+</span>
 
           <h2 class="full-price">
             29.98
           </h2>
           <h2 class="full-price-h2">
-            Total Price
+            Price
           </h2>
 
           <?php
@@ -144,9 +144,9 @@
           // </h2>
           ?>
 
-          <div>
-            <input type="text" name="price[]"  class="price priceSingle" placeholder="price" >
-          </div>
+
+          <input type="text" name="price[]"  class="price priceSingle" placeholder="unit price" onchange="changeVal(this)">
+
 
 
         </footer>
