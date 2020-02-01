@@ -220,6 +220,25 @@ a:hover {
 	transition: margin .15s linear;
 }
 
+.product footer .full-price-h2 {
+	background: LightGray;
+	/* border:2px solid #53b5aa; */
+	/* color: #fff; */
+	float: right;
+	font-size: 22px;
+	font-weight: 300;
+	line-height: 49px;
+	margin: 0;
+	padding: 0 10px;
+	width: 140px;
+
+	-webkit-transition: margin .15s linear;
+	-moz-transition: margin .15s linear;
+	-ms-transition: margin .15s linear;
+	-o-transition: margin .15s linear;
+	transition: margin .15s linear;
+}
+
 .qt, .qt-plus, .qt-minus {
 	display: block;
 	float: left;
@@ -361,4 +380,23 @@ a:hover {
 
 .added {
 	margin: 0 -50px 0 0 !important;
+}
+
+.priceSingle {
+	width:100px;
+	height:50px;
+
+
+}
+
+.priceSingle:hover {
+	background: #53b5aa;
+	color: #fff;
+	cursor: pointer;
+}
+
+.quantity {
+	text-align: center;
+	width:50px;
+	padding: 4px 0px;
 }
