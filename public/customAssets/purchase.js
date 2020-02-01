@@ -2,27 +2,23 @@
 
 var check = false;
 
-
-$(document).ready(function(){
-
-  $(".remove").click(function(){
-    var el = $(this);
-    el.parent().parent().addClass("removed");
+  function removeProduct(el) {
+//    el.parentElement.parentElement.addClass("removed");
     window.setTimeout(
       function(){
-        el.parent().parent().slideUp('fast', function() {
-          el.parent().parent().remove();
+
+          el.parentElement.parentElement.remove();
           if($(".product").length == 0) {
             if(!check) {
               $("#listOfProducts").html("<h1>No products!</h1>");
               check = true;
             }
           }
-  //        changeTotal();
-        });
+          changeTotal();
+
       }, 200);
-  });
-});
+  }
+
 
 function qtMinus(el) {
   var qt = parseFloat(el.parentElement.querySelector(".quantity").value);
@@ -52,7 +48,29 @@ function changeVal(el) {
 
   el.parentElement.querySelector(".full-price").innerHTML =  eq + "৳";
 
-//  changeTotal();
+  changeTotal();
+}
+
+function changeTotal() {
+
+  var price = 0;
+
+  $(".full-price").each(function(index){
+    price += parseFloat($(".full-price").eq(index).html());
+  });
+
+  price = Math.round(price * 100) / 100;
+  //var tax = Math.round(price * 0.05 * 100) / 100
+  // var shipping = parseFloat($(".shipping span").html());
+  var fullPrice = Math.round((price) *100) / 100;
+
+  if(price == 0) {
+    fullPrice = 0;
+  }
+
+  $(".subtotal span").html(price);
+  // $(".tax span").html(tax);
+  $(".total span").html(fullPrice);
 }
 
 
@@ -69,7 +87,7 @@ function freshList() {
 
 function searchProducts(){
 
-  freshList();
+
 
   document.getElementById('searchButton').disabled = true;
 
@@ -214,6 +232,7 @@ function getThisProduct(id) {
 }
 
 function appendThisProduct(data) {
+  freshList();
   var listOfProducts = document.getElementById('listOfProducts');
 
   var article = document.createElement('article');
@@ -223,6 +242,7 @@ function appendThisProduct(data) {
 
   var a = document.createElement('a');
   a.setAttribute('class', 'remove');
+  a.setAttribute('onclick', 'removeProduct(this)');
 
   var img = document.createElement('img');
   if(data.img) {
