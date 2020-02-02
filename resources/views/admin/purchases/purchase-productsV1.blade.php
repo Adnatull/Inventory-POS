@@ -83,7 +83,6 @@
         <div class="form-group">
             <label for="input_supplier">Supplier</label>
             <select class="form-control" name="supplier_id" id="input_supplier">
-                <option value="0">None</option>
                 @foreach($suppliers as $supplier)
                     <option value="{{$supplier->id}}"> {{$supplier->supplier_name}} ({{$supplier->contact_person}})</option>
                 @endforeach
@@ -104,28 +103,37 @@
 
     </div>
 
+
+
   </section>
 
 </div>
+<div class="container">
+  <section id="cart">
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+    </div>
+  </section>
+</div>
+
+
 
 <footer id="site-footer">
   <div class="container clearfix">
 
     <div class="left">
-        <h2 class="subtotal">Subtotal: <span>0</span>৳</h2>
-        <h2 class="discount">Discount: <input type="text" name="discount" id="discount" value="0" onchange="changeDiscount(this)"/>৳</h2>
+        <h2 class="subtotal">Subtotal: <span style="margin-left:53px;margin-right: 53px;">0</span>৳</h2>
+        <h2 >Discount: <input type="text" name="discount" id="discount" class="discount" value="0" onchange="changeDiscount(this)"/>৳</h2>
+        <h2 >Paid: <input type="text" name="paid" id="paid" class="paid" value="0" onchange="changePaid(this)"/>৳</h2>
 
-
-      <?php
-          // <h3 class="tax">Taxes (5%): <span>8.2</span>€</h3>
-          // <h3 class="shipping">Shipping: <span>5.00</span>€</h3>
-      ?>
-
+        <h2 class="dues">Dues: <span style="margin-left:90px;margin-right: 53px;">0</span>৳</h2>
     </div>
 
     <div class="right">
       <h1 class="total">Total: <span>0</span>৳</h1>
-      <a class="btn1">Checkout</a>
+
+      <button type="submit" class="btn1"> Checkout </button>
     </div>
 
   </div>

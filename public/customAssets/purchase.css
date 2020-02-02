@@ -385,9 +385,6 @@ a:hover {
 .priceSingle {
 	width:100px;
 	height:50px;
-
-
-
 }
 
 .priceSingle:hover {
@@ -399,5 +396,21 @@ a:hover {
 .quantity {
 	text-align: center;
 	width:50px;
+	padding: 4px 0px;
+}
+
+.discount {
+	text-align: center;
+	width:120px;
+	padding: 4px 0px;
+}
+
+.paid {
+	text-align: center;
+	width:120px;
+	padding: 4px 0px;
+	margin-left: 50px;
+}
+.dues {
 	padding: 4px 0px;
 }

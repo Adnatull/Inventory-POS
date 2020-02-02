@@ -1,12 +1,7 @@
-
-
 var check = false;
-
-  function removeProduct(el) {
-//    el.parentElement.parentElement.addClass("removed");
+function removeProduct(el) {
     window.setTimeout(
       function(){
-
           el.parentElement.parentElement.remove();
           if($(".product").length == 0) {
             if(!check) {
@@ -47,12 +42,10 @@ function changeVal(el) {
 //  console.log(eq);
 
   el.parentElement.querySelector(".full-price").innerHTML =  eq + "৳";
-
   changeTotal();
 }
 
 function changeTotal() {
-
   var price = 0;
 
   $(".full-price").each(function(index){
@@ -65,6 +58,11 @@ function changeTotal() {
   discount = parseFloat(discount);
   console.log(discount);
   var fullPrice = Math.round((price - discount) *100) / 100;
+
+  var paid = document.getElementById('paid').value;
+  paid = parseFloat(paid);
+
+  $('.dues span').html(fullPrice-paid);
 
   if(price == 0) {
     fullPrice = 0;
@@ -81,6 +79,11 @@ function changeDiscount(el) {
   changeTotal();
 }
 
+function changePaid(el) {
+  el.value = parseFloat(el.value);
+  changeTotal();
+}
+
 
 function freshList() {
   if(check) {
@@ -88,14 +91,11 @@ function freshList() {
     removeChilds(listOfProducts);
     check = false;
   }
-
 }
 
 
 
 function searchProducts(){
-
-
 
   document.getElementById('searchButton').disabled = true;
 
@@ -117,8 +117,6 @@ function searchProducts(){
            url:"/admin/purchases/search",
            data:{product:searchTxt, categoryId:category, brandId:brand},
            success:function(data){
-              //alert(data.success);
-
               console.log(data.success);
               ProcessDropDown(data.success);
            },
@@ -134,6 +132,12 @@ function removeChilds(node) {
   while(node.hasChildNodes()) {
     node.removeChild(node.lastChild);
   }
+}
+
+function existAlready(code) {
+    if($("."+code).length >0 )
+      return true;
+    return false;
 }
 
 function ProcessDropDown(data) {
@@ -177,10 +181,13 @@ function ProcessDropDown(data) {
   var tbody = document.createElement('tbody');
 
   for(var i =0; i < data.length; i++) {
+
+    if(existAlready(data[i].code))
+      continue;
     var tr = document.createElement('tr');
     var th = document.createElement("th");
     th.setAttribute('scope', 'row');
-    th.innerHTML = i+1;
+    th.innerHTML = data[i].id;
     tr.appendChild(th);
 
     var td = document.createElement('td');
@@ -204,7 +211,7 @@ function ProcessDropDown(data) {
     a.setAttribute('type', 'button');
     a.setAttribute('class', 'btn btn-outline-dark');
     a.setAttribute('href', 'javascript:void(0);');
-    a.setAttribute('onClick', "getThisProduct("+data[i].id+")");
+    a.setAttribute('onClick', "getThisProduct("+data[i].id+",this)");
     a.innerHTML = "Select";
     td.appendChild(a);
 
@@ -219,8 +226,10 @@ function ProcessDropDown(data) {
 
 }
 
-function getThisProduct(id) {
+function getThisProduct(id, elm) {
   console.log(id);
+  elm.setAttribute('class', 'btn btn-secondary disabled');
+  elm.setAttribute('aria-disabled', 'true');
   $.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -270,12 +279,28 @@ function appendThisProduct(data) {
   content.setAttribute('class', 'content');
 
   var h1 = document.createElement('h1');
-  h1.innerHTML = data.name;
+  h1.innerHTML = data.name+'  [';
+
+  var code = document.createElement("small");
+  code.setAttribute('class', 'text-muted');
+  code.innerHTML = data.code;
+  h1.appendChild(code);
+  h1.innerHTML = h1.innerHTML + ']';
+
+
+
   content.appendChild(h1);
   var des = document.createElement('p');
   des.innerHTML = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta, numquam quis perspiciatis ea ad omnis provident laborum dolore in atque.";
   //var description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta, numquam quis perspiciatis ea ad omnis provident laborum dolore in atque.";
   content.appendChild(des);
+
+  var inputCode = document.createElement('input');
+  inputCode.setAttribute('type', 'hidden');
+  inputCode.setAttribute('value', data.code);
+  inputCode.setAttribute('name', 'code[]');
+  inputCode.setAttribute('class', data.code);
+  content.appendChild(inputCode);
 
   var selected = document.createElement('div');
   selected.setAttribute('title', 'You have selected this product to be shipped in the color yellow.');

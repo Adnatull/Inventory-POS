@@ -7,6 +7,7 @@ use App\Supplier;
 use App\Product;
 use App\Category;
 use App\Brand;
+use App\Purchase_Detail;
 use Illuminate\Http\Request;
 use Helper;
 
@@ -14,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 // use Illuminate\Support\Collection;
 
 
@@ -60,23 +62,23 @@ class PurchaseController extends Controller
     public function store(Request $request)
     {
       $validatedData = Validator::make($request->all(), [
-          'product_id' => 'required',
-          'supplier_id' => 'required',
-          'quantity' => 'required|integer',
-          'purchase_cost' => 'required',
-          'paid' => 'required'
+          'supplier_id'   => 'required',
+          'code'        => 'required',
+          'quantity'    => 'required',
+        //  'quantity[]'    => 'required',
+          'price'       => 'required',
+          'discount'      => 'required',
+          'paid'          => 'required'
       ]);
 
       if($validatedData->fails()) {
-          return Redirect::route('buy-products')->withErrors($validatedData->messages())->withInput();
+          return Redirect::route('buy-products')->withErrors($validatedData->messages());
       }
       $purchase = new Purchase();
 
-      $purchase->product_id = $request->product_id;
       $purchase->supplier_id = $request->supplier_id;
-      $purchase->quantity = $request->quantity;
-      $purchase->purchase_cost = $request->purchase_cost;
-      $purchase->paid = $request->paid;
+      $purchase->discount = $request->discount;
+      $purchase->total_paid = $request->paid;
 
       if($request->description) {
         $purchase->description = $request->description;
@@ -85,28 +87,55 @@ class PurchaseController extends Controller
       $purchase->created_by = Auth::user()->id;
       $purchase->updated_by = Auth::user()->id;
       $purchase->status = '1';
+      $purchase->save();
+
+      $cost = 0;
+
+      for($i=0; $i<COUNT($request->code); $i++) {
+
+        $product = Product::where('code', $request->code[$i])->get();
+        $purchase_detail = new Purchase_Detail();
+        if($product) {
+            $purchase_detail->product_id = $product->first()->id;
+        }
+
+        $purchase_detail->quantity = $request->quantity[$i];
+        $purchase_detail->purchase_cost = $request->price[$i];
+        $purchase_detail->purchase_id = $purchase->id;
+        $purchase_detail->created_by = Auth::user()->id;
+        $purchase_detail->updated_by = Auth::user()->id;
+        $purchase_detail->status = 1;
+
+        $cost += ($purchase_detail->quantity*$purchase_detail->purchase_cost);
+
+        $purchase_detail->save();
+
+      }
+
+      $purchase->total_purchases_cost = $cost;
+      $purchase->save();
 
       $errors = [];
+      //
+      // if(!Helper::isCurrency($purchase->purchase_cost) ) {
+      //   $errors[] = "Purchase Cost must be in decimal!";
+      // }
+      //
+      // if(!Helper::isCurrency($purchase->paid) ) {
+      //   $errors[] = "Total Paid must be in decimal!";
+      // }
+      //
+      // if(count($errors)>0) {
+      //     return Redirect::route('buy-products')->withErrors($errors)->withInput();
+      // }
 
-      if(!Helper::isCurrency($purchase->purchase_cost) ) {
-        $errors[] = "Purchase Cost must be in decimal!";
-      }
 
-      if(!Helper::isCurrency($purchase->paid) ) {
-        $errors[] = "Total Paid must be in decimal!";
-      }
-
-      if(count($errors)>0) {
-          return Redirect::route('buy-products')->withErrors($errors)->withInput();
-      }
-
-
-      try{
-          $purchase->save();
-      }
-      catch(\Exception $e) {
-          return Redirect::route('buy-products')->withErrors("The data has been tempered in midway! try again")->withInput();
-      }
+      // try{
+      //
+      // }
+      // catch(\Exception $e) {
+      //     return Redirect::route('buy-products')->withErrors("The data has been tempered in midway! try again")->withInput();
+      // }
       return redirect(route('see-all-purchases'));
     }
 
