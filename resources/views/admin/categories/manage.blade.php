@@ -44,7 +44,13 @@
                         @endif
                     </td>
 
-                    <td>{{ $category->ParentCategory['title'] }}</td>
+                    <td>
+                      @if($category->ParentCategory != null)
+                      {{$category->ParentCategory['title'] }}
+                      @else
+                      {{"Root"}}
+                      @endif
+                      </td>
                     <td>{{$category->CreatedBy['name']}}</td>
                     <td>{{$category->UpdatedBy['name']}}</td>
                     <td>
