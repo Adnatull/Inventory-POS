@@ -52,7 +52,9 @@
                     <td>{{$purchase->CreatedBy['name']}}</td>
                     <td>{{$purchase->created_at}}</td>
                     <td>
-
+                      <a type="button" class="btn btn-danger" href="{{route('purchase detials', ['id'=> $purchase->id])}}">
+                          Details
+                      </a>
 
                     </td>
                 </tr>
