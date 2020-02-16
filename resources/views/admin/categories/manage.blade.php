@@ -62,6 +62,6 @@
             </tbody>
         </table>
         <a type="submit" class="btn btn-primary" href="{{route('add_category')}}" >Create New Category</a>
-        <a class="btn btn-primary" href="{{route('admin')}}">Cancel</a>
+        <a class="btn btn-danger" href="{{route('admin')}}">Cancel</a>
     </div>
 @endsection

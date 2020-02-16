@@ -24,7 +24,7 @@
 
                 <div class="form-group">
                     <label for="input_image_field">Select Category Image</label>
-                    <input type="file" name="image" class="form-control-file" id="input_image_field">
+                    <input type="file" name="image" class="form-control" id="input_image_field">
                 </div>
 
                 <div class="form-group">
