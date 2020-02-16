@@ -20,17 +20,18 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Supplier Name</th>
-                <th scope="col">Product Name</th>
-
-                <th scope="col">Quantity</th>
-
-                <th scope="col">Total Purchase Cost</th>
-                <th scope="col">Total Paid</th>
+                <th scope="col">Total Product types</th>
                 <th scope="col">Description</th>
 
-                <th scope="col">Status</th>
-                <th scope="col">Created By</th>
-                <th scope="col">Updated By</th>
+
+                <th scope="col">Total Purchase Cost</th>
+                <th scope="col">Discount</th>
+                <th scope="col">Total Paid</th>
+                <th scope="col">Dues</th>
+
+                <th scope="col">Bought by</th>
+                <th scope="col">Buy Date </th>
+
 
                 <th scope="col">Action</th>
             </tr>
@@ -40,25 +41,16 @@
                 <tr>
                     <th scope="row">{{$purchase->id}}</th>
                     <td>{{ $purchase->Supplier['supplier_name'] }}</td>
-                    <td>{{ $purchase->Product['name'] }}</td>
-                    <td>{{ $purchase->quantity }}</td>
+                    <td>{{ $purchase->totalProductTypes() }}</td>
+                    <td> {{ $purchase->description}}</td>
 
-                     <td>{{ $purchase->purchase_cost }}</td>
+                     <td>{{ $purchase->total_purchases_cost }}</td>
 
-                    <td>{{ $purchase->paid }}</td>
-                    <td>{{ $purchase->description }}</td>
-
-                    <td>
-                        @if($purchase->status == 1)
-                            {{"Active" }}
-                        @else
-                            {{"Not Active"}}
-                        @endif
-                    </td>
-
-
+                    <td>{{ $purchase->discount }}</td>
+                    <td>{{ $purchase->total_paid }}</td>
+                    <td>{{ $purchase->total_purchases_cost - ($purchase->discount+$purchase->total_paid) }}</td>
                     <td>{{$purchase->CreatedBy['name']}}</td>
-                    <td>{{$purchase->UpdatedBy['name']}}</td>
+                    <td>{{$purchase->created_at}}</td>
                     <td>
 
 
