@@ -14,6 +14,15 @@ function removeProduct(el) {
       }, 200);
   }
 
+  function checkDecimal(money) {
+    if(!money.match(/^\d+.?\d*$/)) {
+      el.value = '0';
+      alert('Please enter input correctly');
+      el.focus();
+    }
+
+  }
+
 
 function qtMinus(el) {
   var qt = parseFloat(el.parentElement.querySelector(".quantity").value);
@@ -74,12 +83,13 @@ function changeTotal() {
 }
 
 function changeDiscount(el) {
-  var discount = document.getElementById("discount");
-  discount.value = parseFloat(discount.value);
+  checkDecimal(el.value);
+  el.value = parseFloat(el.value);
   changeTotal();
 }
 
 function changePaid(el) {
+  checkDecimal(el.value);
   el.value = parseFloat(el.value);
   changeTotal();
 }
@@ -365,8 +375,5 @@ function appendThisProduct(data) {
   window.setTimeout(function(){
     listOfProducts.prepend(article);
   }, 100);
-
-
-
 
 }

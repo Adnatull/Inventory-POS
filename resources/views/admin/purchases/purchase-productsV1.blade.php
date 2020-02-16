@@ -39,7 +39,11 @@
         <select class="form-control" name="category_id" id="input_category">
             <option value="0">None</option>
             @foreach($categories as $category)
-                <option value="{{$category->id}}"> {{$category->title}} ({{$category->ParentCategory['title']}})</option>
+                <option value="{{$category->id}}"> {{$category->title}}}}
+                  @if($category->ParentCategory != null)
+                  ({{$category->ParentCategory['title'] }})
+                  @endif
+
             @endforeach
         </select>
 

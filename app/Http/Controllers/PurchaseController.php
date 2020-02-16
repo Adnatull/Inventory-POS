@@ -74,12 +74,23 @@ class PurchaseController extends Controller
       if($validatedData->fails()) {
           return Redirect::route('buy-products')->withErrors($validatedData->messages());
       }
+
+      $errors = array();
+
       $purchase = new Purchase();
 
       $purchase->supplier_id = $request->supplier_id;
-      $purchase->discount = $request->discount;
-      $purchase->total_paid = $request->paid;
+      if(!Helper::isCurrency($request->discount) ) {
+        $errors[] = "Purchase Discount must be in decimal!";
+      } else {
+        $purchase->discount = $request->discount;
+      }
 
+      if(!Helper::isCurrency($request->paid) ) {
+        $errors[] = "Paid amount must be in decimal!";
+      } else {
+        $purchase->total_paid = $request->paid;
+      }
       if($request->description) {
         $purchase->description = $request->description;
       }
@@ -87,7 +98,12 @@ class PurchaseController extends Controller
       $purchase->created_by = Auth::user()->id;
       $purchase->updated_by = Auth::user()->id;
       $purchase->status = '1';
-      $purchase->save();
+      if(count($errors)>0) {
+          return Redirect::route('buy-products')->withErrors($errors)->withInput();
+      } else {
+        $purchase->save();
+      }
+
 
       $cost = 0;
 
@@ -100,42 +116,35 @@ class PurchaseController extends Controller
         }
 
         $purchase_detail->quantity = $request->quantity[$i];
-        $purchase_detail->purchase_cost = $request->price[$i];
+        if(!Helper::isCurrency($request->price[$i]) ) {
+          $errors[] = "Price of every product must be in decimal!";
+        } else {
+          $purchase_detail->purchase_cost = $request->price[$i];
+        }
+
         $purchase_detail->purchase_id = $purchase->id;
         $purchase_detail->created_by = Auth::user()->id;
         $purchase_detail->updated_by = Auth::user()->id;
         $purchase_detail->status = 1;
 
-        $cost += ($purchase_detail->quantity*$purchase_detail->purchase_cost);
+        if(count($error) == 0) {
+          $cost += ($purchase_detail->quantity*$purchase_detail->purchase_cost);
+        }
 
-        $purchase_detail->save();
-
+        if(count($errors)>0) {
+            return Redirect::route('buy-products')->withErrors($errors)->withInput();
+        } else {
+          $purchase_detail->save();
+        }
       }
 
       $purchase->total_purchases_cost = $cost;
-      $purchase->save();
+      if(count($errors)>0) {
+          return Redirect::route('buy-products')->withErrors($errors)->withInput();
+      } else {
+        $purchase->save();
+      }
 
-      $errors = [];
-      //
-      // if(!Helper::isCurrency($purchase->purchase_cost) ) {
-      //   $errors[] = "Purchase Cost must be in decimal!";
-      // }
-      //
-      // if(!Helper::isCurrency($purchase->paid) ) {
-      //   $errors[] = "Total Paid must be in decimal!";
-      // }
-      //
-      // if(count($errors)>0) {
-      //     return Redirect::route('buy-products')->withErrors($errors)->withInput();
-      // }
-
-
-      // try{
-      //
-      // }
-      // catch(\Exception $e) {
-      //     return Redirect::route('buy-products')->withErrors("The data has been tempered in midway! try again")->withInput();
-      // }
       return redirect(route('see-all-purchases'));
     }
 

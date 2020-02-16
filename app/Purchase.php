@@ -25,4 +25,8 @@ class Purchase extends Model
   public function Purchase_Details() {
       return $this->hasMany('App\Purchase_Detail', 'purchase_id', 'id');
   }
+
+  public function totalProductTypes() {
+    return $this->Purchase_Details()->count();
+  }
 }
