@@ -10,6 +10,10 @@ class Purchase_Detail extends Model
       return $this->belongsTo('App\Purchase', 'purchase_id', 'id');
   }
 
+  public function Product() {
+    return $this->belongsTo('App\Product', 'product_id', 'id'); 
+  }
+
 
     protected $table = 'purchase_details';
 }

@@ -14,10 +14,6 @@ class Purchase extends Model
       return $this->belongsTo('App\User', 'updated_by');
   }
 
-  public function Product() {
-      return $this->belongsTo('App\Product', 'product_id', 'id');
-  }
-
   public function Supplier() {
       return $this->belongsTo('App\Supplier', 'supplier_id', 'id');
   }

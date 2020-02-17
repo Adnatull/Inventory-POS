@@ -28,9 +28,16 @@ class PurchaseController extends Controller
      */
     public function index()
     {
-      $purchases = Purchase::get();
+      $purchases = Purchase::where('status', true)->get();
       return view('admin.purchases.see-all',[
         'purchases' => $purchases
+      ]);
+    }
+
+    public function purchaseDetail($id) {
+      $purchase = Purchase::find($id);
+      return view('admin.purchases.purchaseDetails', [
+        'purchase' => $purchase
       ]);
     }
 
