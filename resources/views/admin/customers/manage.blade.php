@@ -69,7 +69,7 @@
 
             </tbody>
         </table>
-        <a type="submit" class="btn btn-primary" href="{{route('add-supplier')}}" >Add New Customer</a>
+        <a type="submit" class="btn btn-primary" href="{{route('add-customer')}}" >Add New Customer</a>
         <a class="btn btn-primary" href="{{route('admin')}}">Cancel</a>
     </div>
 @endsection
