@@ -4,6 +4,11 @@
   Sell Products
 @endsection
 
+@push('customcss')
+  <link rel="stylesheet" type="text/css" href="{{asset('/')}}customAssets/sale.css" />
+  <meta name="csrf-token" content="{{ csrf_token() }}" />
+@endpush
+
 @section('body')
 
 <!-- <a class="btn btn-secondary active" href="#" role="button" onclick="hasCustomer(this)">Want to provide Customer Information?</a> -->
@@ -20,22 +25,16 @@
   </div>
 
   <div id="getCustomerFromDB">
-      <!-- <input class="form-control" type="text" id="txtCustomer" placeholder="Customer Name">
-      <a class="btn btn-primary" id="searchCustomers" href="#" role="button">Search</a>
-      <select id="customersFromDB" name="customerID" class="form-control">
-          <option>Default select</option>
-      </select> -->
+
   </div>
 
   <div id="newCustomer">
-      <!-- <input class="form-control" type="text" name="customerName" id="CustomerName" placeholder="Customer Name">
-      <input class="form-control" type="text" name="customerAddress" id="CustomerAddress" placeholder="Customer Address">
-      <input class="form-control" type="text" name="customerPhone" id="CustomerPhone" placeholder="Customer Phone"> -->
+
   </div>
 
 
 </form>
 @endsection
 @push('jscripts')
-  <script src="{{asset('/')}}style.js"></script>
+  <script src="{{asset('/')}}customAssets/sale.js"></script>
 @endpush
