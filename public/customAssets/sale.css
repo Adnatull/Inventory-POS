@@ -1,0 +1,15 @@
+.discount {
+	text-align: center;
+	width:120px;
+	padding: 4px 0px;
+}
+
+.paid {
+	text-align: center;
+	width:120px;
+	padding: 4px 0px;
+	margin-left: 62px;
+}
+.dues {
+	padding: 4px 0px;
+}

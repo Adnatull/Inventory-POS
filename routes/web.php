@@ -69,7 +69,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::group(['middleware' => ['seller']], function() {
         Route::get('/admin/products/sale', 'TransactionController@sell')->name('sell-products');
         Route::post('/admin/sale/getCustomersByAjax', 'SaleController@getCustomers')->name('Get-Customers');
-
+        Route::post('/admin/sale/getProductByCodeAjax', 'SaleController@getProductByCodeAjax')->name('Get-Product-By-Code-Ajax');
     });
 
 });
