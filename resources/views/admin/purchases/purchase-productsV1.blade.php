@@ -33,38 +33,41 @@
 </section>
 
 <div class="container">
-  <section id="cart">
-    <div class="form-group">
-        <label for="input_category">Category</label>
-        <select class="form-control" name="category_id" id="input_category">
-            <option value="0">None</option>
-            @foreach($categories as $category)
-                <option value="{{$category->id}}"> {{$category->title}}}}
-                  @if($category->ParentCategory != null)
-                  ({{$category->ParentCategory['title'] }})
-                  @endif
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+    <section id="cart">
+      <div class="form-group">
+          <label for="input_category">Category</label>
+          <select class="form-control" name="category_id" id="input_category">
+              <option value="0">None</option>
+              @foreach($categories as $category)
+                  <option value="{{$category->id}}"> {{$category->title}}}}
+                    @if($category->ParentCategory != null)
+                    ({{$category->ParentCategory['title'] }})
+                    @endif
 
-            @endforeach
-        </select>
+              @endforeach
+          </select>
 
-        <label for="input_brand">Brand</label>
-        <select class="form-control" name="brand_id" id="input_brand">
-            <option value="0">None</option>
-            @foreach($brands as $brand)
-                <option value="{{$brand->id}}"> {{$brand->name}} </option>
-            @endforeach
-        </select>
+          <label for="input_brand">Brand</label>
+          <select class="form-control" name="brand_id" id="input_brand">
+              <option value="0">None</option>
+              @foreach($brands as $brand)
+                  <option value="{{$brand->id}}"> {{$brand->name}} </option>
+              @endforeach
+          </select>
 
-        <label for="input_search">Search</label>
-        <input type="text" name="searchProducts" class="form-control" id="input_search_products"  required>
+          <label for="input_search">Search</label>
+          <input type="text" name="searchProducts" class="form-control" id="input_search_products"  required>
 
-        <button type="submit" name="searchButton" id="searchButton" class="btn btn-primary" onClick="searchProducts(this)">
-          Search
-        </button>
+          <button type="submit" name="searchButton" id="searchButton" class="btn btn-primary" onClick="searchProducts(this)">
+            Search
+          </button>
 
 
-    </div>
-  </section>
+      </div>
+    </section>
+  </div>
+
 </div>
 
 <div class="container">
@@ -125,20 +128,26 @@
 
 <footer id="site-footer">
   <div class="container clearfix">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+    <div class="row">
+      <div class="col-4">
+          <h2 class="subtotal">Subtotal: <span style="margin-left:53px;margin-right: 53px;">0</span>৳</h2>
+          <h2 >Discount: <input type="text" name="discount" id="discount" class="discount" value="0" onchange="changeDiscount(this)"/>৳</h2>
+          <h2 >Paid: <input type="text" name="paid" id="paid" class="paid" value="0" onchange="changePaid(this)"/>৳</h2>
 
-    <div class="left">
-        <h2 class="subtotal">Subtotal: <span style="margin-left:53px;margin-right: 53px;">0</span>৳</h2>
-        <h2 >Discount: <input type="text" name="discount" id="discount" class="discount" value="0" onchange="changeDiscount(this)"/>৳</h2>
-        <h2 >Paid: <input type="text" name="paid" id="paid" class="paid" value="0" onchange="changePaid(this)"/>৳</h2>
+          <h2 class="dues">Dues: <span style="margin-left:90px;margin-right: 53px;">0</span>৳</h2>
+      </div>
+      
 
-        <h2 class="dues">Dues: <span style="margin-left:90px;margin-right: 53px;">0</span>৳</h2>
+      <div class="col-4">
+        <h1 class="total">Total: <span>0</span>৳</h1>
+
+        <button type="submit" class="btn1"> Checkout </button>
+      </div>
     </div>
 
-    <div class="right">
-      <h1 class="total">Total: <span>0</span>৳</h1>
+  </div>
 
-      <button type="submit" class="btn1"> Checkout </button>
-    </div>
 
   </div>
 </footer>

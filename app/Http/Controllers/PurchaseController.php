@@ -134,7 +134,7 @@ class PurchaseController extends Controller
         $purchase_detail->updated_by = Auth::user()->id;
         $purchase_detail->status = 1;
 
-        if(count($error) == 0) {
+        if(count($errors) == 0) {
           $cost += ($purchase_detail->quantity*$purchase_detail->purchase_cost);
         }
 
