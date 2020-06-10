@@ -24,7 +24,7 @@ function removeProduct(el) {
   }
 
 
-function qtMinus(el) {
+function qtMinus(el, availableQuantity) {
   var qt = parseFloat(el.parentElement.querySelector(".quantity").value);
   qt = qt-1;
   if(qt<0) {
@@ -35,16 +35,26 @@ function qtMinus(el) {
   changeVal(el);
 }
 
-function qtPlus(el) {
+function qtPlus(el, availableQuantity) {
   var qt = parseFloat(el.parentElement.querySelector(".quantity").value);
   qt = qt+1;
+  if(qt > availableQuantity) {
+    qt = availableQuantity;
+  }
   el.parentElement.querySelector(".quantity").value = qt;
 //  console.log(qt);
   changeVal(el);
 }
 
-function changeVal(el) {
+function changeVal(el, availableQuantity) {
   var qt = parseFloat(el.parentElement.querySelector(".quantity").value);
+  if(qt<0) {
+    qt = 0;
+  }
+  if(qt>availableQuantity) {
+    qt = availableQuantity;
+  }
+  el.parentElement.querySelector(".quantity").value = qt;
   var price = parseFloat(el.parentElement.querySelector(".price").value);
   el.parentElement.querySelector(".price").value = price;
   var eq = Math.round(price * qt * 100) / 100;
@@ -105,6 +115,7 @@ function freshList() {
 
 
 
+
 function searchProducts(){
 
   document.getElementById('searchButton').disabled = true;
@@ -120,11 +131,16 @@ function searchProducts(){
 
   $.ajax({
            type:'POST',
-           url:"/admin/sale/getProductByCodeAjax",
+           url:"/admin/sale/getRemainingProductByCodeAjax",
            data:{productCode:searchTxt},
            success:function(data){
-              console.log(data.success);
+          console.log(data);
               // ProcessDropDown(data.success);
+              if(data.success) {
+                appendThisProduct(data.success);
+              } else {
+                alert('Product not available');
+              }
            },
 
         });
@@ -326,7 +342,7 @@ function appendThisProduct(data) {
 
   var qt_minus = document.createElement('span');
   qt_minus.setAttribute('class', 'qt-minus');
-  qt_minus.setAttribute('onclick', 'qtMinus(this)');
+  qt_minus.setAttribute('onclick', 'qtMinus(this, '+data.quantity+')');
   qt_minus.innerHTML = "-";
   footer.appendChild(qt_minus);
 
@@ -335,19 +351,19 @@ function appendThisProduct(data) {
   qt.setAttribute('type', 'text');
   qt.setAttribute('name', 'quantity[]');
   qt.setAttribute('value', '1');
-  qt.setAttribute('onchange', 'changeVal(this)');
+  qt.setAttribute('onchange', 'changeVal(this, '+data.quantity+')');
   footer.appendChild(qt);
 
   var qt_plus = document.createElement('span');
   qt_plus.setAttribute('class', 'qt-plus');
-  qt_plus.setAttribute('onclick', 'qtPlus(this)');
+  qt_plus.setAttribute('onclick', 'qtPlus(this, '+data.quantity+')');
   qt_plus.innerHTML = "+";
 
   footer.appendChild(qt_plus);
 
   var full_price = document.createElement('h2');
   full_price.setAttribute('class', 'full-price');
-  full_price.innerHTML = "0";
+  full_price.innerHTML = data.price;
   footer.appendChild(full_price);
 
   var full_price_h2 = document.createElement('h2');
@@ -359,7 +375,7 @@ function appendThisProduct(data) {
   var price = document.createElement('input');
   price.setAttribute('class', 'price priceSingle');
   price.setAttribute('type', 'text');
-  price.setAttribute('value', '0');
+  price.setAttribute('value', data.price);
   price.setAttribute('placeholder', 'unit price');
   price.setAttribute('onchange', 'changeVal(this)');
   price.setAttribute('name', 'price[]');
@@ -370,6 +386,7 @@ function appendThisProduct(data) {
 
   window.setTimeout(function(){
     listOfProducts.prepend(article);
+    changeTotal();
   }, 100);
 
 }

@@ -9,6 +9,7 @@ use App\Category;
 use App\Brand;
 use App\Purchase_Detail;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Helper;
 
 use Illuminate\Support\Facades\Auth;
@@ -16,7 +17,6 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-// use Illuminate\Support\Collection;
 
 
 class PurchaseController extends Controller

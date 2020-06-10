@@ -1,7 +1,7 @@
 @extends('admin.master')
 
 @section('title')
-  Purchase Details
+  Sale Details
 @endsection
 
 @section('body')
@@ -24,7 +24,7 @@
                             </div>
 
                             <div class="col-md-6 text-right">
-                                <p class="font-weight-bold mb-1">Invoice #{{$purchase->id}}</p>
+                                <p class="font-weight-bold mb-1">Invoice #{{$sale->id}}</p>
                                 <p class="text-muted">Due to: {{Carbon\Carbon::now("Asia/Dhaka")->toDateTimeString()}}</p>
                             </div>
                         </div>
@@ -33,11 +33,19 @@
 
                         <div class="row pb-5 p-5">
                             <div class="col-md-6">
-                                <p class="font-weight-bold mb-4">Supplier Information</p>
-                                <p class="mb-1">{{$purchase->Supplier['supplier_name']}}</p>
-                                <p>Contact Person: {{$purchase->Supplier['contact_person']}}</p>
-                                <p class="mb-1">Phone: {{$purchase->Supplier['phone']}}</p>
-                                <p class="mb-1">Address: {{ $purchase->address }}</p>
+                                <p class="font-weight-bold mb-4">Customer Information</p>
+                                @if($sale->customer != null)
+                                  <p class="mb-1">{{$sale->Customer['name']}}</p>
+                                  <p>Phone: {{$sale->Customer['phone']}}</p>
+                                  @if($sale->Customer['email'] != null)
+                                    <p class="mb-1">Email: {{$sale->Customer['email']}}</p>
+                                  @endif
+                                  @if($sale->Customer['address'])
+                                    <p class="mb-1">Address: {{ $sale->Customer['address'] }}</p>
+                                  @endif
+
+                                @endif
+
                             </div>
 
                             <div class="col-md-6 text-right">
@@ -63,15 +71,15 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                      @foreach($purchase->Purchase_Details as $product)
+                                      @foreach($sale->Sale_Details as $product)
 
                                         <tr>
                                             <td>1</td>
                                             <td>{{$product->Product['name']}}</td>
                                             <td>LTS Versions</td>
                                             <td>{{ $product->quantity }}</td>
-                                            <td>৳ {{ number_format( $product->purchase_cost, 2) }}</td>
-                                            <td>৳ {{ number_format( $product->quantity * $product->purchase_cost, 2) }}</td>
+                                            <td>৳ {{ number_format( $product->sale_cost, 2) }}</td>
+                                            <td>৳ {{ number_format( $product->quantity * $product->sale_cost, 2) }}</td>
                                         </tr>
                                       @endforeach
                                     </tbody>
@@ -82,29 +90,26 @@
                         <div class="d-flex flex-row-reverse bg-dark text-white">
                             <div class="py-3 px-3 text-right">
                                 <div class="mb-2">Dues</div>
-                                <div class="h5 font-weight-light">৳ {{ number_format( $purchase->total_purchases_cost - ($purchase->discount + $purchase->total_paid), 2) }}</div>
+                                <div class="h5 font-weight-light">৳ {{ number_format( $sale->total_sales_cost - ($sale->discount + $sale->total_paid), 2) }}</div>
                             </div>
                             <div class="py-3 px-3 text-right">
                                 <div class="mb-2">Paid Amount</div>
-                                <div class="h5 font-weight-light">৳ {{ number_format( $purchase->total_paid, 2) }}</div>
+                                <div class="h5 font-weight-light">৳ {{ number_format( $sale->total_paid, 2) }}</div>
                             </div>
                             <div class="py-3 px-3 text-right">
                                 <div class="mb-2">Grand Total</div>
-                                <div class="h5 font-weight-light">৳ {{ number_format( $purchase->total_purchases_cost - $purchase->discount, 2) }}</div>
+                                <div class="h5 font-weight-light">৳ {{ number_format( $sale->total_sales_cost - $sale->discount, 2) }}</div>
                             </div>
-                            <div class="py-3 px-3 text-right">
-                                <div class="mb-2">Grand Total</div>
-                                <div class="h5 font-weight-light">৳ {{ number_format($purchase->total_purchases_cost - $purchase->discount, 2) }}</div>
-                            </div>
+
 
                             <div class="py-3 px-3 text-right">
                                 <div class="mb-2">Discount</div>
-                                <div class="h5 font-weight-light">৳{{number_format( $purchase->discount, 2)}}</div>
+                                <div class="h5 font-weight-light">৳{{number_format( $sale->discount, 2)}}</div>
                             </div>
 
                             <div class="py-3 px-3 text-right">
                                 <div class="mb-2">Sub - Total amount</div>
-                                <div class="h5 font-weight-light">৳{{number_format( $purchase->total_purchases_cost, 2)}}</div>
+                                <div class="h5 font-weight-light">৳{{number_format( $sale->total_sales_cost, 2)}}</div>
                             </div>
                         </div>
                     </div>

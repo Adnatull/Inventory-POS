@@ -36,8 +36,8 @@
         <label for="input_search">Product Code</label>
         <input type="text" name="searchProducts" class="form-control" id="input_search_products"  required>
 
-        <button type="submit" name="searchButton" id="searchButton" class="btn btn-primary" onClick="searchProducts(this)">
-          Search
+        <button type="submit" name="searchButton" id="searchButton" class="btn btn-primary" onClick="searchProducts()">
+          Add Product
         </button>
 
 
@@ -57,15 +57,25 @@
 
 
 
-<form method="POST" action="{{route('purchase-products')}}" >
+<form method="POST" action="{{route('complete sale products')}}" >
 @csrf
 
     <div class="container">
       <section id="cart">
         <div class="form-group">
-            <label for="input_supplier">Supplier</label>
-            <select class="form-control" name="supplier_id" id="input_supplier">
-
+            <label for="input_customer">Customer</label>
+            <select class="form-control" name="customer_id" id="input_customer">
+                <option value="0">None</option>
+                @foreach($customers as $customer)
+                <option value="{{$customer->id}}">
+                  {{$customer->name}} [
+                    {{$customer->phone}},
+                    @if($customer->address != null)
+                      {{$customer->address}}
+                    @endif
+                    ]
+                </option>
+                @endforeach
 
             </select>
         </div>

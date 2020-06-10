@@ -1,7 +1,7 @@
 @extends('admin.master')
 
 @section('title')
-  All Transactions
+  All Purchase Transactions
 @endsection
 
 @section('body')

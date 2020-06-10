@@ -13,8 +13,10 @@
                             {{ session('status') }}
                         </div>
                     @endif
+                    <div class="jumotron text-center">
+                      <h3>Aloha Cloth Store</h3>
+                    </div>
 
-                    You are logged in!
                 </div>
             </div>
         </div>

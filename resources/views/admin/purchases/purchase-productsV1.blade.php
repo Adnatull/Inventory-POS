@@ -40,7 +40,7 @@
           <select class="form-control" name="category_id" id="input_category">
               <option value="0">None</option>
               @foreach($categories as $category)
-                  <option value="{{$category->id}}"> {{$category->title}}}}
+                  <option value="{{$category->id}}"> {{$category->title}}
                     @if($category->ParentCategory != null)
                     ({{$category->ParentCategory['title'] }})
                     @endif
@@ -137,7 +137,7 @@
 
           <h2 class="dues">Dues: <span style="margin-left:90px;margin-right: 53px;">0</span>৳</h2>
       </div>
-      
+
 
       <div class="col-4">
         <h1 class="total">Total: <span>0</span>৳</h1>

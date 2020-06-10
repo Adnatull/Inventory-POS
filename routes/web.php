@@ -58,6 +58,9 @@ Route::group(['middleware' => ['auth']], function() {
         Route::post('/admin/customers/add', 'CustomerController@store')->name('add-customer');
         Route::get('/admin/customers/manage', 'CustomerController@index')->name('manage-customers');
 
+        Route::get('/admin/sales/manage', 'SaleController@index')->name('see-all-sales');
+        Route::get('/admin/sales/details/{id}', 'SaleController@saleDetail')->name('sale detials');
+
     });
     Route::group(['middleware' => ['manager']], function() {
         Route::get('/admin/products/manage-products/product/photo/delete/{id}', 'ProductController@deleteProductPhoto')->name('deleteProductPhoto');
@@ -69,7 +72,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::group(['middleware' => ['seller']], function() {
         Route::get('/admin/products/sale', 'TransactionController@sell')->name('sell-products');
         Route::post('/admin/sale/getCustomersByAjax', 'SaleController@getCustomers')->name('Get-Customers');
-        Route::post('/admin/sale/getProductByCodeAjax', 'SaleController@getProductByCodeAjax')->name('Get-Product-By-Code-Ajax');
+        Route::post('/admin/sale/getRemainingProductByCodeAjax', 'SaleController@getRemainingProductByCodeAjax')->name('Get-Product-By-Code-Ajax');
+        Route::post('/admin/sale/saleProducts', 'SaleController@store')->name('complete sale products');
     });
 
 });

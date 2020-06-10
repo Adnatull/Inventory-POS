@@ -5,7 +5,7 @@
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  
+
       <meta name="viewport" content="width=1024">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -86,7 +86,7 @@
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                 <a class="dropdown-item" href="#">{{ Auth::user()->name }}</a>
                 <a class="dropdown-item" href="{{route('homepage')}}">Home Page</a>
-                <a class="dropdown-item" href="#">Activity Log</a>
+
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logoutForm').submit();" >Logout</a>
                 <form action="{{route('logout')}}" id="logoutForm" method="POST">
@@ -108,23 +108,7 @@
                 <span>Dashboard</span>
             </a>
         </li>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-fw fa-folder"></i>
-                <span>Blog</span>
-            </a>
-            <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-                <h6 class="dropdown-header">Blog Screens:</h6>
-                <a class="dropdown-item" href="">Add New Post</a>
-                <a class="dropdown-item" href="login.html">Login</a>
-                <a class="dropdown-item" href="register.html">Register</a>
-                <a class="dropdown-item" href="forgot-password.html">Forgot Password</a>
-                <div class="dropdown-divider"></div>
-                <h6 class="dropdown-header">Other Pages:</h6>
-                <a class="dropdown-item" href="404.html">404 Page</a>
-                <a class="dropdown-item" href="blank.html">Blank Page</a>
-            </div>
-        </li>
+
         @if(Auth::user()->hasRole('admin'))
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -142,20 +126,6 @@
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-fw fa-folder"></i>
-                <span>Suppliers</span>
-            </a>
-            <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-                <h6 class="dropdown-header">Suppliers Screens:</h6>
-                <a class="dropdown-item" href="{{route('add-supplier')}}">Add New Supplier</a>
-                <a class="dropdown-item" href="{{route('manage-suppliers')}}">Manage Suppliers</a>
-            </div>
-        </li>
-        @endif
-
-        @if(Auth::user()->hasRole('admin'))
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-fw fa-folder"></i>
                 <span>Product Brands</span>
             </a>
             <div class="dropdown-menu" aria-labelledby="pagesDropdown">
@@ -165,7 +135,6 @@
             </div>
         </li>
         @endif
-
         @if(Auth::user()->hasRole('admin'))
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -179,20 +148,6 @@
             </div>
         </li>
         @endif
-
-        @if(Auth::user()->hasRole('admin'))
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Users</span>
-                </a>
-                <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-
-                    <a class="dropdown-item" href="{{route('manage-users')}}">Manage Users</a>
-                </div>
-            </li>
-        @endif
-
         @if(Auth::user()->hasRole('executive'))
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -206,25 +161,24 @@
                 </div>
             </li>
         @endif
-
-        @if(Auth::user()->hasRole('executive'))
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Purchase Management</span>
-                </a>
-                <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-
-                    <a class="dropdown-item" href="{{route('buy-products')}}">Purchase New Products</a>
-                    <a class="dropdown-item" href="{{route('see-all-purchases')}}">See All Purchases</a>
-                </div>
-            </li>
+        @if(Auth::user()->hasRole('admin'))
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-fw fa-folder"></i>
+                <span>Suppliers</span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+                <h6 class="dropdown-header">Suppliers Screens:</h6>
+                <a class="dropdown-item" href="{{route('add-supplier')}}">Add New Supplier</a>
+                <a class="dropdown-item" href="{{route('manage-suppliers')}}">Manage Suppliers</a>
+            </div>
+        </li>
         @endif
         @if(Auth::user()->hasRole('executive'))
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-fw fa-folder"></i>
-                    <span>Customers Management</span>
+                    <span>Customers</span>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="pagesDropdown">
 
@@ -234,29 +188,55 @@
             </li>
         @endif
 
+
+
+
+
+
+
+
+
+        @if(Auth::user()->hasRole('executive'))
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Purchase</span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+
+                    <a class="dropdown-item" href="{{route('buy-products')}}">Purchase New Products</a>
+                    <a class="dropdown-item" href="{{route('see-all-purchases')}}">See All Purchases</a>
+                </div>
+            </li>
+        @endif
+
+
         @if(Auth::user()->hasRole('seller'))
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-fw fa-folder"></i>
-                    <span>Transactions</span>
+                    <span>Sales</span>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="pagesDropdown">
 
                     <a class="dropdown-item" href="{{route('sell-products')}}">Sell Products</a>
-                    <a class="dropdown-item" href="{{route('manage-products')}}">Manage Product</a>
+                    <a class="dropdown-item" href="{{route('see-all-sales')}}">See All Sells</a>
                 </div>
             </li>
         @endif
-        <li class="nav-item">
-            <a class="nav-link" href="charts.html">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>Charts</span></a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="tables.html">
-                <i class="fas fa-fw fa-table"></i>
-                <span>Tables</span></a>
-        </li>
+        @if(Auth::user()->hasRole('admin'))
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Users</span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+
+                    <a class="dropdown-item" href="{{route('manage-users')}}">Manage Users</a>
+                </div>
+            </li>
+        @endif
+
     </ul>
 
     <div id="content-wrapper" >
@@ -272,7 +252,7 @@
         <footer class="sticky-footer">
             <div class="container my-auto">
                 <div class="copyright text-center my-auto">
-                    <span>Copyright © Your Website 2019</span>
+                    <span>Copyright © Aloha 2019</span>
                 </div>
             </div>
         </footer>
