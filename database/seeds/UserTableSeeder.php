@@ -25,9 +25,9 @@ class UserTableSeeder extends Seeder
         $buyerRole = Role::where('name', 'buyer')->first();
 
         $admin = User::create([
-            'name' => 'admin',
-            'email' => 'admin@admin.com',
-            'password' => Hash::make('admin@admin.com')
+            'name' => 'adnatull',
+            'email' => 'adnatull@dimikit.net',
+            'password' => Hash::make('mojahid06')
         ]);
 
         $admin->roles()->attach($adminRole->id);

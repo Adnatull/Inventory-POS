@@ -57,9 +57,12 @@
                         <a type="button" class="btn btn-danger" href="{{route('editCategory', ['id'=> $category->id])}}">
                             Edit
                         </a>
-                        <a type="button" class="btn btn-danger" href="{{route('deleteCategory', ['id' => $category->id])}}" onclick="return confirm('Are you sure?')">
-                            Delete
-                        </a>
+                        <?php
+                        // <a type="button" class="btn btn-danger" href="{{route('deleteCategory', ['id' => $category->id])}}" onclick="return confirm('Are you sure?')">
+                        //     Delete
+                        // </a>
+                        ?>
+
                     </td>
                 </tr>
 

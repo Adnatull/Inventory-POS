@@ -72,9 +72,12 @@
                                 <a type="button" class="btn btn-danger" href="{{route('changeProductPrice', ['id' => $product->id])}}">
                                     Change Price
                                 </a>
-                                <a type="button" class="btn btn-danger" href="{{route('deleteProduct', ['id' => $product->id])}}" onclick="return confirm('Are you sure?')">
-                                    Delete
-                                </a>
+                                <?php
+                                  // <a type="button" class="btn btn-danger" href="{{route('deleteProduct', ['id' => $product->id])}}" onclick="return confirm('Are you sure?')">
+                                  //     Delete
+                                  // </a>
+                                ?>
+
                         @endif
                     </td>
                 </tr>
